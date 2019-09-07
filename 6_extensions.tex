@@ -1,0 +1,276 @@
+\chapter{Extensions around the ArduPilot Framework}
+    
+    \section{Multi-vehicle}
+    
+        \subsection{Deployment}
+            Explain how to deploy code to all Raspberry Pi.
+            \begin{itemize}
+                \item rsync
+                \item scp
+                \item ssh with commands
+                \item bash script (with check for success)
+                \item 
+            \end{itemize}
+    
+        \subsection{ROS}
+            \subsubsection{Setup on computer}
+                \begin{enumerate}
+                    \item Run on your computer
+                
+                    \begin{minted}{bash}
+    # Install the ros package mavros
+    sudo apt install ros-<distribution>-mavros
+    # Setup tell ROS what is the IP address of this computer (change 192.168.1.100 by your computer IP address if you use a different one)
+    echo "export ROS_IP=192.168.1.100" >> ~/.bashrc
+    # Apply modification
+    source ~/.bashrc
+                    \end{minted}
+                    \item \texttt{printenv|grep ROS} prints ROS environment variables
+                    \item \texttt{echo \$ROS\_IP}, to check if the address has been updated
+                \end{enumerate}
+
+            \subsubsection{ROS Setup on Raspberry Pi}
+        
+                The Raspberry Pi will use ROS with a \texttt{MAVROS} node on each one. And they will all be connected by wifi to a router that is also connected to computer running \texttt{roscore}.
+                \begin{enumerate}
+                    \item Run these commands after ssh into the Raspberry Pi
+                
+                    \begin{minted}{bash}
+# Setup ROS at the startup of the Raspberry Pi
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+# Install GeographicLib needed for mavros
+sudo /opt/ros/kinetic/lib/mavros/install_geographiclib_datasets.sh
+# Setup where roscore is running (change 192.168.1.100 by your computer IP address if you use a different one)
+echo "export ROS_MASTER_URI=http://192.168.1.100:11311" >> ~/.bashrc
+# Setup tell ROS what is the IP address of this Raspberry Pi
+echo "export ROS_IP=192.168.1.1<xx>" >> ~/.bashrc
+# Apply modification
+source ~/.bashrc
+                    \end{minted}
+                    \item \texttt{printenv|grep ROS}: check \texttt{ROS\_MASTER\_URI} and \texttt{ROS\_IP} 
+                \end{enumerate}
+            
+            \subsubsection{ArduPilot Setup on Raspberry Pi}
+                \begin{enumerate}
+                    \item Run \texttt{sudo nano /etc/default/arducopter}, to use the telemetry the telemetry locally for \texttt{MAVROS}.
+                    
+                    \begin{minted}{bash}
+# Change this line
+TELEM1="-A udp:192.168.1.100:14550"
+# by this line
+TELEM1="-A udp:127.0.0.1:14650" #same for all Raspberry Pies
+# Save the change
+                    \end{minted}
+
+                    \item Run \texttt{sudo systemctl restart arducopter} to apply change and restart arducopter.
+                    \item Go into the \texttt{MAVROS} folder with \texttt{roscd mavros}.
+                    \item Go into the launch folder \texttt{launch} with \texttt{cd launch}.
+                    \item \texttt{sudo nano node.launch} and \texttt{sudo nano apm.launch}.
+                \end{enumerate}
+                
+                \begin{minted}{bash}
+# In node.launch replace mavros 
+<node pkg="mavros" type="mavros_node" name="mavros"
+# by mavros<xx> (e.g. mavros01) the number of the Raspberry Pi
+<node pkg="mavros" type="mavros_node" name="mavros<xx>"
+# This will change the name of the mavros node to mavros<xx> to avoid conflict.
+
+# In apm.launch replace
+<arg name="fcu_url" default="/dev/ttyACM0:57600" />
+<arg name="gcs_url" default="" />
+# by this
+<arg name="fcu_url" default="udp://:14650@" />
+<arg name="gcs_url" default="udp://:14551@192.168.1.100:140<xx>" />
+# the fcu_url is the url of the Raspberry Pi local telemetry
+# the gcs_url is the url of my computer for the Ground Control Station
+                \end{minted}
+                
+                To execute the launch file at the Raspberry Pi start up. A service called \texttt{mavros} has been created.
+                For more information on service check \ref{services}.
+                
+                \begin{enumerate}
+                    \item \texttt{cd /lib/systemd/system}
+                    \item \texttt{sudo nano mavros.service}
+                    \begin{minted}{bash}
+[Unit]
+Description=mavros 
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "source /opt/ros/kinetic/setup.bash;\
+export ROS_MASTER_URI=http://192.168.1.100:11311;\
+export ROS_IP=192.168.1.1<xx>;\
+/usr/bin/python /opt/ros/kinetic/bin/roslaunch mavros apm.launch"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+                    \end{minted}
+                    \item \texttt{sudo systemctl daemon-reload}
+                    \item \texttt{sudo systemctl start mavros}
+                \end{enumerate}
+            
+            \subsubsection{Texting on the computer the ROS configuration}
+                \begin{enumerate}
+                    \item Launch \texttt{roscore} on your computer
+                    \item Reboot Raspberry Pi \texttt{ssh pi@192.168.1.1<xx> sudo systemctl restart mavros}
+                    \item Launch QGroundControl
+                    \item \texttt{rosnode list} should show you
+                
+                    \begin{minted}{bash}
+/mavros<xx>
+/rosout
+                    \end{minted}
+                    \item \texttt{rosservice call /mavros/set\_stream\_rate 0 10 1}
+                    \item \texttt{rostopic echo /mavros/imu/data}
+                \end{enumerate}
+
+    \section{Simulation}
+        
+        \subsection{Installation of SITL Software}
+            Ubuntu 18.04 is used
+            
+            These \href{http://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html}{instructions} have been used to set up the SITL simulator
+            
+            \begin{minted}{bash}
+# Setting up the Build Environment on Linux
+    # Clone ArduPilot repository with Copter 3.6 version
+cd ~
+git clone -b Copter-3.6 https://github.com/ArduPilot/ardupilot
+cd ardupilot
+git submodule update --init --recursive
+    # Install some required packages
+Tools/environment_install/install-prereqs-ubuntu.sh -y
+    # Reload the path (log-out and log-in to make permanent)
+. ~/.profile
+
+# Start SITL simulator
+cd ~/ardupilot/ArduCopter
+sim_vehicle.py --console --map
+            \end{minted}
+            
+            Install the full desktop version of ROS Melodic using this \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{link}.
+            
+            Gazebo is installed with it.
+            
+            \begin{minted}{bash}
+# Try launching gazebo in the terminal
+gazebo
+            \end{minted}
+            
+            If there is an error in the terminal containing \texttt{api.ignitionfuel.org}.
+            
+            Replace inside
+            \begin{verbatim}
+~/.ignition/fuel/config.yaml
+
+url: https://api.ignitionfuel.org
+by
+url: https://api.ignitionrobotics.org
+            \end{verbatim}
+            
+            Then, the ArduPilot for Gazebo Simulator is installed
+            \begin{minted}{bash}
+# Installation steps
+cd ~
+git clone https://github.com/khancyr/ardupilot_gazebo
+cd ardupilot_gazebo
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+
+# Launch Gazebo with
+gazebo --verbose worlds/iris_arducopter_runway.world
+
+# and in another terminal execute
+cd ~/ardupilot/ArduCopter
+../Tools/autotest/sim_vehicle.py -f gazebo-iris --console --map
+            \end{minted}
+            
+            Installation of MAVROS \href{http://ardupilot.org/dev/docs/ros-install.html#installing-mavros}{link}
+            \begin{minted}{bash}
+sudo apt-get install ros-melodic-mavros ros-melodic-mavros-extras
+
+# The following command is cut in two lines as it did not fit on the page.
+wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros\
+/scripts/install_geographiclib_datasets.sh
+chmod a+x install_geographiclib_datasets.sh
+
+# If this command return This script require root privileges!
+./install_geographiclib_datasets.sh
+# Run with sudo
+sudo ./install_geographiclib_datasets.sh
+# Then delete the script
+rm install_geographiclib_datasets.sh
+
+# The following command is cut in two lines as it did not fit on the page.
+sudo apt-get install ros-melodic-rqt ros-melodic-rqt-common-plugins\ ros-melodic-rqt-robot-plugins python-catkin-tools
+            \end{minted}
+            
+            Connect ArduPilot to ROS \href{http://ardupilot.org/dev/docs/ros-sitl.html}{link}
+            \begin{minted}{bash}
+# Create ArduPilot ROS workspace
+cd ~
+mkdir -p ardupilot_ws/src
+cd ardupilot_ws
+catkin init
+cd src
+
+# Copy apm.launch from MAVROS
+cd ~/ardupilot_ws
+mkdir launch
+cd launch
+roscp mavros apm.launch apm.launch
+            \end{minted}
+            
+            Replace inside \texttt{apm.launch}
+            \begin{verbatim}
+<arg name="fcu_url" default="/dev/ttyACM0:57600" />
+by
+<arg name="fcu_url" default="udp://127.0.0.1:14551@14555" />
+            \end{verbatim}
+            
+            \begin{minted}{bash}
+# Then launch
+roslaunch apm.launch
+
+# You can use rqt to interact with ArduPilot
+rqt
+            \end{minted}
+            
+            \href{https://www.youtube.com/watch?time_continue=253&v=orMXVby-tSI}{Resources} to use SITL+Gazebo+ROS.
+    
+    
+    
+    \section{Vicon and Kalman filter}
+        There are two way to interface with Vicon. Either via Vicon DataStream SDK or VRPN.
+        
+        \subsection{API}
+            \subsubsection{Vicon DataStream SDK}
+                It is an Development Kit from Vicon. It give an easy access to the Vicon DataStream. It is compatible with Vicon Tracker and Nexus. \href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{Link}. A ROS package has already been implemented to use it, \href{https://github.com/ethz-asl/vicon_bridge}{vicon\_bridge}.
+                The last commit is from 4 years ago but it should still work according to \href{https://answers.ros.org/question/329849/which-ros-package-use-with-vicon/}{this}.
+            
+            \subsubsection{VRPN}
+                It is a network based interface to access data of motion capture software. It is compatible only with Vicon Tracker and not with Vicon Nexus. It works out of the box with \href{https://wiki.ros.org/vrpn_client_ros}{vrpn\_client\_ros}. When an object is created in Vicon Tracker, the object information is stream automaticaly via vrpn.
+                
+        \subsection{ROS Integration}
+            \href{https://answers.ros.org/question/329849/which-ros-package-use-with-vicon/}{This post} ask which ROS package use with Vicon.
+            
+            \href{https://discuss.ardupilot.org/t/position-hold-with-vision-position-estimate-and-att-pos-mocap-for-indoor-localization/29626/5}{This thread} speak in detail about different people implementing MoCap system with drones.
+            
+            \href{https://support.middlevr.com/hc/en-us/articles/203900225-Using-a-Vicon-tracker-via-VRPN}{Using a Vicon tracker via VRPN}
+            
+            \href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{This} is an SDK for Vicon.
+            
+            Vicon Nexus does not have vrpn server \href{https://forum.worldviz.com/printthread.php?s=aff0c689c7c7ff36a324fa2335838db4&t=4273}{ref}. So we have to use either \href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{Vicon Datastream SDK} with \href{https://github.com/USC-ACTLab/libmotioncapture}{\texttt{libmotioncapture}} from USC-ACTLab and make ros package on top or use Vicon Tracker that has a vrpn server and use \texttt{vrpn\_client\_ros}.
+        
+            \href{http://ardupilot.org/copter/docs/common-optitrack.html#common-optitrack}{This} is a project with Optitrack
+    
+    \section{Drone control}
+        PX4 \href{https://discuss.ardupilot.org/t/offboard-control/37869}{page} for Offboard control.
+        
+        ArduPilot \href{http://ardupilot.org/copter/docs/ac2_guidedmode.html#guided-nogps}{page} for guided mode with no\_gps
+        
+        The mavlink message \texttt{SET\_ATTITUDE\_TARGET} allow to control the attitude of the drone at the same altitude.

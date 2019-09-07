@@ -1,0 +1,87 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[scale=0.8]{geometry}
+\graphicspath{{images/}}
+\usepackage[acronym]{glossaries}
+\usepackage{xcolor}
+\usepackage{minted}
+\makeglossaries
+
+\usepackage{csquotes}
+\usepackage{biblatex}
+\addbibresource{website.bib}
+
+\usepackage{caption}
+\usepackage{subcaption}
+
+ 
+\newglossaryentry{fc}
+{
+    name=flight controller,
+    description={It is …}
+}
+
+\newglossaryentry{oc}
+{
+    name=on-board computer,
+    description={It is computer on a drone. In our case it is a Nvidia Jetson Nano}
+}
+
+\newglossaryentry{kv}
+{
+    name=KV,
+    description={It is an indicator of the speed of the motor. The higher the faster is the motor}
+}
+
+\newglossaryentry{ekf}
+{
+    name=Extended Kalman Filter,
+    description={It is an algorithm that calculate in our case an estimate of the position and orientation the drone with the sensor data of the flight controller and the MoCap system}
+}
+
+\newacronym{gcs}{GCS}{Ground Control Station}
+
+\newacronym{esc}{ESC}{Electronic Speed Controller}
+
+\newacronym{pdb}{PDB}{Power Distribution Board}
+ 
+\begin{document}
+
+\include{0_title}
+
+\tableofcontents
+
+\include{1_introduction}
+
+\include{2_state_of_the_art}
+
+\include{3_hardware}
+
+\include{4_drone_building}
+
+\include{5_testing}
+
+\include{6_extensions}
+
+\include{7_q_and_a}
+
+\include{8_conclusions}
+
+\include{9_to_remove}
+
+\appendix
+
+\include{a_linux}
+
+\include{b_ros}
+    
+\printglossary[type=\acronymtype]
+\printglossary
+
+\printbibliography
+
+\end{document}
