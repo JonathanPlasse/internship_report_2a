@@ -1,21 +1,21 @@
 # Latex
-*.pdf
-.latexmkrc
-*.aux
 *.acn
+*.acr
+*.alg
+*.aux
 *.bbl
 *.bcf
 *.blg
 *.fdb_latexmk
 *.fls
 *.glo
+*.glg
+*.gls
 *.ist
 *.log
 *.out
+*.pdf
 *.run.xml
 *.synctex.gz
 *.toc
 _minted-main
-
-# Visual Studio Code
-.vscode

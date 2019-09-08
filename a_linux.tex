@@ -1,30 +1,30 @@
 \chapter{Linux}
-    \begin{itemize}
-        \item sudo
-        \item .bashrc
-        \item services
-        \item ssh
-        \item environment variables
-        \item chmod
-        \item 
-    \end{itemize}
+\begin{itemize}
+    \item sudo
+    \item .bashrc
+    \item services
+    \item ssh
+    \item environment variables
+    \item chmod
+    \item
+\end{itemize}
 
-    \section{Environment Variables}
-        An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer \cite{wikipedia_env_var}.
-        \subsection{ROS}
-            In this project we modified different ROS environment variables \cite{ros_env_var}.
-            \subsubsection{ROS\_MASTER\_URI}
-                It specifies where the ROS master can be find.
-                It is only needed for multiple devices.
-                
-            \subsubsection{ROS\_IP ou ROS\_HOSTNAME}
-                It tells to the ROS master what is the IP address or the hostname of the computer.
-                It is only needed for multiple devices.
+\section{Environment Variables}
+An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer \cite{wikipedia_env_var}.
+\subsection{ROS}
+In this project we modified different ROS environment variables \cite{ros_env_var}.
+\subsubsection{ROS\_MASTER\_URI}
+It specifies where the ROS master can be find.
+It is only needed for multiple devices.
 
-    \section{Services} \label{services}
-        A detailed explanation is available here \cite{techrepublic_services}.
-        To control the different services you can use these commands.
-        \begin{description}
-            \item[sudo systemctl start/stop/restart <service>] to start/stop/restart a service.
-            \item[sudo systemctl enable/disable <service>] to enable/disable a service at start-up.
-        \end{description}
+\subsubsection{ROS\_IP ou ROS\_HOSTNAME}
+It tells to the ROS master what is the IP address or the hostname of the computer.
+It is only needed for multiple devices.
+
+\section{Services} \label{services}
+A detailed explanation is available here \cite{techrepublic_services}.
+To control the different services you can use these commands.
+\begin{description}
+    \item[sudo systemctl start/stop/restart <service>] to start/stop/restart a service.
+    \item[sudo systemctl enable/disable <service>] to enable/disable a service at start-up.
+\end{description}

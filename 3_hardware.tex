@@ -1,325 +1,325 @@
 \chapter{Hardware Design and Development of Aerial Robot Swarm Platforms}
-    {\color{red}TODO JONATHAN}
-    
-    Check out this ref
+ {\color{red}TODO JONATHAN}
+
+Check out this ref
     {\color{red} Check out this \cite{dojofordrones_rpi_drone}, will provide you with many of the components you would need.}
-    Based on the softwares you plan to use (and the hardware they suggest to be compatible), explain some (I would say 2) hardware designs that could be used to test these softwares. Best is if both softwares could be tested on 1 platform (preferably the smallest one). If not possible explain why, but still show the 2 solutions.
-    
-    \section{Detailed Quadrotor Hardware Requirements}
-        \begin{itemize}
-            \item Thrust to weight ratio of at least 2
-            \item Flight time > 5 minutes
-            \item Smallest possible size to fit all components
-            \item Has to carry an on-board computer with a powerful processor and enough RAM (4GB) and WiFi compatibility.
-            \item Overall as durable as possible and protect the weaker components.
-        \end{itemize}
-        
-        \subsection{A generic list of required quadcopter components}
-        
-            \subsubsection{Frame}
-            
-            \subsubsection{Props}
-                The size is 5 inch it is the biggest propeller that would leave enough place for the Jetson Nano. The pitch is 30mm as higher pitch would increase Vortex Risk State. It has 2 blade as it is more efficient and thus less straining for the battery and motor. It is in plastic as it is more resistant to crash.
-                
-                It weights 2g each so 8g total.
-                
-            \subsubsection{Motors}
-                 The size of 2205 and kv of 2300 is recommended to 5 inch propeller. The thrust with 5x3 propeller at 75\% is 614g with 7.54A consumption. So for a thrust/weight ratio of 2 the drone can weight $1228g=614g \times 4motor / 2$.
-                
-                It weights 30g each so 120g total.
-                
-            \subsubsection{ESCs}
-                As they do not support higher amperage than their specification so a margin is taken. The motors for 7.54A each produce a total thrust of $2456g=614g\times 4motor$. 20A ESC are enough.
-                
-                It weights 28g each so 112g total.
-                
-                They are placed on the frame arms.
-                
-            \subsubsection{Zip}
-                It holds the ESC and other elements together.\\
-                Its dimensions are 3 x 100 mm.
-                
-            \subsubsection{Battery}
-                With $ \frac{1.5mAh \times 60min}{3A \times 4motor}= 7.5min$. It can also support a continuous current draw of $60A = 1.5mAh\times 40C$.
-                
-                It weights 113g.
-                
-                Its dimensions are 29.5 * 34 * 66 mm.
-                
-                It is placed under the drone.
-                
-            \subsubsection{Battery Straps}
-                It is to hold the battery.
-                
-                It should weight around 10g.
-                
-                Its dimensions are 260 * 20 mm.
-                
-            \subsubsection{Power distribution board}
-                It support 3S battery. It can output 20A continuous max per ESC outputs. It has a BEC of 5V and 3A continuous so it can power the Jetson Nano without problem.
-                
-                It weights 6g.
-                
-                Its dimensions are 36 x 36 mm.
-                
-                It is placed in the center of the frame. It is attached with the 4 standoff.
-                
-            \subsubsection{XT60 connector cable}
-                It is to connect the battery to Power Distribution Board without cutting cable (it would use the female XT60 cable). The male XT60 would be used to power the Jetson Nano.
-                
-                It should weights around 10g.
-                
-            \subsubsection{RC Receiver}
-                It has 6 channel. It is enough as we do not use RC much in this project.
-                
-                It weights 15g.
-                
-                Its dimensions are 47 x 26.2 x 15 mm.
-                
-                It is placed at the rear of the drone zip tied.
-                
-            \subsubsection{Dupont Cable Female to Female}
-                It is to connect the \gls{fc} to the RC Receiver.
-                
-                Its length is 10cm.
-                
-            \subsubsection{Flight Controller}
-                \begin{itemize}
-                    \item This \gls{fc} is compatible with all firmware. It is from the PixHawk series that is used a lot so a lot of resources is available for it. All cable and connector needed are delivered with it. It will be powered with the ESC BEC.
-                    
-                    It weights 11g.
-                    
-                    Its dimensions are 36 x 36 mm.
-                    
-                    It is placed on top of the Power Distribution Board with standoff.
-                    
-                    \item It is compatible with ArduPilot and PX4 not ROSflight. It is used coupled with a Raspberry Pi. All cable and connector needed are delivered with it. It will be powered with the power provided with the Navio2.
-                    
-                    It weights 23g.
-                    
-                    Its dimensions are 55 x 65 mm.
-                    
-                    It is placed on top of the Raspberry Pi.
-                \end{itemize}
-                
-            \subsubsection{Companion computer}
-                \begin{itemize}
-                    \item Jetson Nano. Already bought.
-                
-                    It weights 136g.
-                    
-                    Its dimensions are 95.3 x 76.2 mm.
-                    
-                    It is placed on top of the drone with Kyosho Zeal under it to dampen vibration.
-                
-                    \item Raspberry Pi 4. It is powered with Navio2.
-                
-                    It weights 50g.
-                    
-                    Its dimensions are 87 x 58.5 mm.
-                    
-                    It is placed on top of the drone.
-                \end{itemize}
-                
-            \subsubsection{Anti-vibration}
-                \begin{itemize}
-                    \item Anti-vibration Stand-off.
-                    
-                    \item Kyosho Zeal
-                    \item Mounting tape
-                \end{itemize}
-                
-            \subsubsection{Wifi module}
-            
-            \subsubsection{Power connection for flight controller and onboard computer}
-                
-            \subsubsection{Low-voltage Alarm}
-                It is to warn when the lipo battery is low as it could damage it to use it when it is discharged.
-                
-                It weights 11g.
-                
-                It is placed at the rear of the drone.
-                
-            {\color{blue}The next items are not on the drone}
-                
-            \subsubsection{RC Transmitter}
-                It could be useful for future project with a need of more channel. Another RC transmitter would not have to be bought.
-                
-            \subsubsection{Battery Charger}
-                It is compatible with the battery.
-                
-            \subsubsection{Propeller Balancer}
-                It is to balance propeller.
-    
-    \newpage
-    \section{Quadrotor Builds}
-        Explain 2 quadrotor builds below. Use the same list of components as above and now put specific hardware choices. So list products we can buy (name of product with hyperlink we can go to website to order). Explain why it satisfies the component requirements. Multiple options for 1 generic component are possible, but still put in \textit{cursive} which of the alternatives you prefer and why. You can put pictures, although if we have a link to the product it is fine. If you think the document requires a picture to understand, you can put it.\\
-        FOR EVERY COMPONENT, list the SHAPE DIMENSIONS and MASS and WHERE you will put it on the frame and HOW you will fix it to the frame (e.g. battery above or below, with a strip of other fixing method)
-        \subsection{Medium-Small Quadrotor Build}
-        
-        
-            This is a \cite{hackaday_navio} with RPi2 and Navio2.
-            Another project \cite{instructables_navio}.
+Based on the softwares you plan to use (and the hardware they suggest to be compatible), explain some (I would say 2) hardware designs that could be used to test these softwares. Best is if both softwares could be tested on 1 platform (preferably the smallest one). If not possible explain why, but still show the 2 solutions.
+
+\section{Detailed Quadrotor Hardware Requirements}
+\begin{itemize}
+    \item Thrust to weight ratio of at least 2
+    \item Flight time > 5 minutes
+    \item Smallest possible size to fit all components
+    \item Has to carry an on-board computer with a powerful processor and enough RAM (4GB) and WiFi compatibility.
+    \item Overall as durable as possible and protect the weaker components.
+\end{itemize}
+
+\subsection{A generic list of required quadcopter components}
+
+\subsubsection{Frame}
+
+\subsubsection{Props}
+The size is 5 inch it is the biggest propeller that would leave enough place for the Jetson Nano. The pitch is 30mm as higher pitch would increase Vortex Risk State. It has 2 blade as it is more efficient and thus less straining for the battery and motor. It is in plastic as it is more resistant to crash.
+
+It weights 2g each so 8g total.
+
+\subsubsection{Motors}
+The size of 2205 and kv of 2300 is recommended to 5 inch propeller. The thrust with 5x3 propeller at 75\% is 614g with 7.54A consumption. So for a thrust/weight ratio of 2 the drone can weight $1228g=614g \times 4motor / 2$.
+
+It weights 30g each so 120g total.
+
+\subsubsection{ESCs}
+As they do not support higher amperage than their specification so a margin is taken. The motors for 7.54A each produce a total thrust of $2456g=614g\times 4motor$. 20A ESC are enough.
+
+It weights 28g each so 112g total.
+
+They are placed on the frame arms.
+
+\subsubsection{Zip}
+It holds the ESC and other elements together.\\
+Its dimensions are 3 x 100 mm.
+
+\subsubsection{Battery}
+With $ \frac{1.5mAh \times 60min}{3A \times 4motor}= 7.5min$. It can also support a continuous current draw of $60A = 1.5mAh\times 40C$.
+
+It weights 113g.
+
+Its dimensions are 29.5 * 34 * 66 mm.
+
+It is placed under the drone.
+
+\subsubsection{Battery Straps}
+It is to hold the battery.
+
+It should weight around 10g.
+
+Its dimensions are 260 * 20 mm.
+
+\subsubsection{Power distribution board}
+It support 3S battery. It can output 20A continuous max per ESC outputs. It has a BEC of 5V and 3A continuous so it can power the Jetson Nano without problem.
+
+It weights 6g.
+
+Its dimensions are 36 x 36 mm.
+
+It is placed in the center of the frame. It is attached with the 4 standoff.
+
+\subsubsection{XT60 connector cable}
+It is to connect the battery to Power Distribution Board without cutting cable (it would use the female XT60 cable). The male XT60 would be used to power the Jetson Nano.
+
+It should weights around 10g.
+
+\subsubsection{RC Receiver}
+It has 6 channel. It is enough as we do not use RC much in this project.
+
+It weights 15g.
+
+Its dimensions are 47 x 26.2 x 15 mm.
+
+It is placed at the rear of the drone zip tied.
+
+\subsubsection{Dupont Cable Female to Female}
+It is to connect the \gls{fc} to the RC Receiver.
+
+Its length is 10cm.
+
+\subsubsection{Flight Controller}
+\begin{itemize}
+    \item This \gls{fc} is compatible with all firmware. It is from the PixHawk series that is used a lot so a lot of resources is available for it. All cable and connector needed are delivered with it. It will be powered with the ESC BEC.
+
+          It weights 11g.
+
+          Its dimensions are 36 x 36 mm.
+
+          It is placed on top of the Power Distribution Board with standoff.
+
+    \item It is compatible with ArduPilot and PX4 not ROSflight. It is used coupled with a Raspberry Pi. All cable and connector needed are delivered with it. It will be powered with the power provided with the Navio2.
+
+          It weights 23g.
+
+          Its dimensions are 55 x 65 mm.
+
+          It is placed on top of the Raspberry Pi.
+\end{itemize}
+
+\subsubsection{Companion computer}
+\begin{itemize}
+    \item Jetson Nano. Already bought.
+
+          It weights 136g.
+
+          Its dimensions are 95.3 x 76.2 mm.
+
+          It is placed on top of the drone with Kyosho Zeal under it to dampen vibration.
+
+    \item Raspberry Pi 4. It is powered with Navio2.
+
+          It weights 50g.
+
+          Its dimensions are 87 x 58.5 mm.
+
+          It is placed on top of the drone.
+\end{itemize}
+
+\subsubsection{Anti-vibration}
+\begin{itemize}
+    \item Anti-vibration Stand-off.
+
+    \item Kyosho Zeal
+    \item Mounting tape
+\end{itemize}
+
+\subsubsection{Wifi module}
+
+\subsubsection{Power connection for flight controller and onboard computer}
+
+\subsubsection{Low-voltage Alarm}
+It is to warn when the lipo battery is low as it could damage it to use it when it is discharged.
+
+It weights 11g.
+
+It is placed at the rear of the drone.
+
+{\color{blue}The next items are not on the drone}
+
+\subsubsection{RC Transmitter}
+It could be useful for future project with a need of more channel. Another RC transmitter would not have to be bought.
+
+\subsubsection{Battery Charger}
+It is compatible with the battery.
+
+\subsubsection{Propeller Balancer}
+It is to balance propeller.
+
+\newpage
+\section{Quadrotor Builds}
+Explain 2 quadrotor builds below. Use the same list of components as above and now put specific hardware choices. So list products we can buy (name of product with hyperlink we can go to website to order). Explain why it satisfies the component requirements. Multiple options for 1 generic component are possible, but still put in \textit{cursive} which of the alternatives you prefer and why. You can put pictures, although if we have a link to the product it is fine. If you think the document requires a picture to understand, you can put it.\\
+FOR EVERY COMPONENT, list the SHAPE DIMENSIONS and MASS and WHERE you will put it on the frame and HOW you will fix it to the frame (e.g. battery above or below, with a strip of other fixing method)
+\subsection{Medium-Small Quadrotor Build}
+
+
+This is a \cite{hackaday_navio} with RPi2 and Navio2.
+Another project \cite{instructables_navio}.
 
 
 
-            \subsubsection{Frame}
-                It is F2 Mito \cite{bangood_f2_mito}.
-            
-                It is 275mm frame in carbon fiber and it is big enough for the Jetson Nano.
-            
-                It weights 125g.
-            
-            \subsubsection{Props}
-                It is 5x3 propeller \cite{bangood_propeller}. The size is 5 inch it is the biggest propeller that would leave enough place for the Jetson Nano. The pitch is 30mm as higher pitch would increase Vortex Risk State. It has 2 blade as it is more efficient and thus less straining for the battery and motor. It is in plastic as it is more resistant to crash.
-                
-                It weights 2g each so 8g total.
-                
-            \subsubsection{Motors}
-                It is Emax RS2205 2300KV \cite{bangood_motor}. The size of 2205 and kv of 2300 is recommended to 5 inch propeller. The thrust with 5x3 propeller at 75\% is 614g with 7.54A consumption. So for a thrust/weight ratio of 2 the drone can weight $1228g=614g \times 4motor / 2$ \cite{google_sheets_motor}.
-                
-                It weights 30g each so 120g total.
-                
-            \subsubsection{ESCs}
-                It is 20A ESC \cite{bangood_esc} as they do not support higher amperage than their specification so a margin is taken. The motors for 7.54A each produce a total thrust of $2456g=614g\times 4motor$. 20A ESC are enough.
-                
-                It weights 28g each so 112g total.
-                
-                They are placed on the frame arms.
-                
-            \subsubsection{Zip}
-                \cite{bangood_zip_ties}. It holds the ESC and other elements together.\\
-                Its dimensions are 3 x 100 mm.
-                
-            \subsubsection{Battery}
-                Lipo 11.1V 1500mAh 40C XT60 Plug \cite{bangood_battery}. With $ \frac{1.5mAh \times 60min}{3A \times 4motor}= 7.5min$. It can also support a continuous current draw of $60A = 1.5mAh\times 40C$.
-                
-                It weights 113g.
-                
-                Its dimensions are 29.5 * 34 * 66 mm.
-                
-                It is placed under the drone.
-                
-            \subsubsection{Battery Straps}
-                \cite{bangood_battery_strap}. It is to hold the battery.
-                
-                It should weight around 10g.
-                
-                Its dimensions are 260 * 20 mm.
-                
-            \subsubsection{Power distribution board}
-                Matek Mini Power \cite{bangood_pdb}. It support 3S battery. It can output 20A continuous max per ESC outputs. It has a BEC of 5V and 3A continuous so it can power the Jetson Nano without problem.
-                
-                It weights 6g.
-                
-                Its dimensions are 36 x 36 mm.
-                
-                It is placed in the center of the frame. It is attached with the 4 standoff.
-                
-            \subsubsection{XT60 connector cable}
-                \cite{bangood_xt60_cable}. It is to connect the battery to Power Distribution Board without cutting cable (it would use the female XT60 cable). The male XT60 would be used to power the Jetson Nano.
-                
-                It should weights around 10g.
-                
-            \subsubsection{RC Receiver}
-                Flysky 2.4G 6CH FS-iA6B \cite{bangood_receiver}. It has 6 channel. It is enough as we do not use RC much in this project.
-                
-                It weights 15g.
-                
-                Its dimensions are 47 x 26.2 x 15 mm.
-                
-                It is placed at the rear of the drone zip tied.
-                
-            \subsubsection{Dupont Cable Female to Female}
-                \cite{bangood_dupont_cable}. It is to connect the \gls{fc} to the RC Receiver.
-                
-                Its length is 10cm.
-                
-            \subsubsection{Flight Controller}
-                \begin{itemize}
-                    \item PixRacer \cite{mrobotics_pixracer}. This \gls{fc} is compatible with all firmware. It is from the PixHawk series that is used a lot so a lot of resources is available for it. All cable and connector needed are delivered with it. It will be powered with the ESC BEC.
-                    
-                    It weights 11g.
-                    
-                    Its dimensions are 36 x 36 mm.
-                    
-                    It is placed on top of the Power Distribution Board with standoff.
-                    
-                    \item Navio2 \cite{emlid_navio2}. It is compatible with ArduPilot and PX4 not ROSflight. It is used coupled with a Raspberry Pi. All cable and connector needed are delivered with it. It will be powered with the power module \cite{emlid_power_module} provided with the Navio2. You have the response of Emlid about the hardware compatibility here \cite{emlid_rpi_compatibility}.
-                    
-                    It weights 23g.
-                    
-                    Its dimensions are 55 x 65 mm.
-                    
-                    It is placed on top of the Raspberry Pi.
-                \end{itemize}
-                
-            \subsubsection{Companion computer}
-                \begin{itemize}
-                    \item Jetson Nano. Already bought.
-                
-                    It weights 136g.
-                    
-                    Its dimensions are 95.3 x 76.2 mm.
-                    
-                    It is placed on top of the drone with Kyosho Zeal under it to dampen vibration.
-                
-                    \item Raspberry Pi 4. It is powered with Navio2.
-                
-                    It weights 50g.
-                    
-                    Its dimensions are 87 x 58.5 mm.
-                    
-                    It is placed on top of the drone.
-                \end{itemize}
-                
-            \subsubsection{Anti-vibration}
-                \begin{itemize}
-                    \item Anti-Vibration Standoff \cite{bangood_standoff}. It dampens the vibration propagated to the PixRacer.
-                    
-                    \item Kyosho Zeal \cite{amazon_kyosho}. It dampens the vibration propagated to the Raspberry Pi by putting it under the Raspberry case.
-                \end{itemize}
-                
-            \subsubsection{Wifi module}
-                300Mbps Wireless usb adapter \cite{amazon_panda_wifi_module}. It has 300 Mbps bandwidth so the router could support around 13 drones. The router has a bandwidth of 4000Mbps.
-                
-                It weights 9g.
-                
-                It is placed on a usb port of the Jetson Nano or the Raspberry Pi.
-                
-            \subsubsection{XT60 to 2.1-5.5mm dc plug}
-                \cite{bangood_xt60_connector}. It is to power the Jetson Nano.
-                
-                It should weights around 5g.
-                
-            \subsubsection{Low-voltage Alarm}
-                \cite{bangood_battery_monitor}. It is to warn when the lipo battery is low as it could damage it to use it when it is discharged.
-                
-                It weights 11g.
-                
-                It is placed at the rear of the drone.
-                
-            {\color{blue}The next items are not on the drone}
-                
-            \subsubsection{RC Transmitter}
-                Flysky i6X FS-i6X 2.4GHz 10CH \cite{bangood_transmitter}. It is compatible with the RC receiver. It has 10 channel that is 4 more than the receiver. It could be useful for future project with a need of more channel. Another RC transmitter would not have to be bought.
-                
-            \subsubsection{Battery Charger}
-                \cite{bangood_battery_charger}. It is compatible with the battery.
-                
-            \subsubsection{Propeller Balancer}
-                \cite{bangood_prop_balancer}. It is to balance propeller.
-            
-            \subsubsection{Weight}
-                The total weight of the drone is around 700g.
-                
-            \subsubsection{Simulation}
-                \begin{figure}[!ht]
-                    \centering
-                    \includegraphics[width=\linewidth]{design/ecalc.png}
-                    \caption{eCalc copter simulation}
-                    \label{fig:ecalc}
-                \end{figure}
+\subsubsection{Frame}
+It is F2 Mito \cite{bangood_f2_mito}.
+
+It is 275mm frame in carbon fiber and it is big enough for the Jetson Nano.
+
+It weights 125g.
+
+\subsubsection{Props}
+It is 5x3 propeller \cite{bangood_propeller}. The size is 5 inch it is the biggest propeller that would leave enough place for the Jetson Nano. The pitch is 30mm as higher pitch would increase Vortex Risk State. It has 2 blade as it is more efficient and thus less straining for the battery and motor. It is in plastic as it is more resistant to crash.
+
+It weights 2g each so 8g total.
+
+\subsubsection{Motors}
+It is Emax RS2205 2300KV \cite{bangood_motor}. The size of 2205 and kv of 2300 is recommended to 5 inch propeller. The thrust with 5x3 propeller at 75\% is 614g with 7.54A consumption. So for a thrust/weight ratio of 2 the drone can weight $1228g=614g \times 4motor / 2$ \cite{google_sheets_motor}.
+
+It weights 30g each so 120g total.
+
+\subsubsection{ESCs}
+It is 20A ESC \cite{bangood_esc} as they do not support higher amperage than their specification so a margin is taken. The motors for 7.54A each produce a total thrust of $2456g=614g\times 4motor$. 20A ESC are enough.
+
+It weights 28g each so 112g total.
+
+They are placed on the frame arms.
+
+\subsubsection{Zip}
+\cite{bangood_zip_ties}. It holds the ESC and other elements together.\\
+Its dimensions are 3 x 100 mm.
+
+\subsubsection{Battery}
+Lipo 11.1V 1500mAh 40C XT60 Plug \cite{bangood_battery}. With $ \frac{1.5mAh \times 60min}{3A \times 4motor}= 7.5min$. It can also support a continuous current draw of $60A = 1.5mAh\times 40C$.
+
+It weights 113g.
+
+Its dimensions are 29.5 * 34 * 66 mm.
+
+It is placed under the drone.
+
+\subsubsection{Battery Straps}
+\cite{bangood_battery_strap}. It is to hold the battery.
+
+It should weight around 10g.
+
+Its dimensions are 260 * 20 mm.
+
+\subsubsection{Power distribution board}
+Matek Mini Power \cite{bangood_pdb}. It support 3S battery. It can output 20A continuous max per ESC outputs. It has a BEC of 5V and 3A continuous so it can power the Jetson Nano without problem.
+
+It weights 6g.
+
+Its dimensions are 36 x 36 mm.
+
+It is placed in the center of the frame. It is attached with the 4 standoff.
+
+\subsubsection{XT60 connector cable}
+\cite{bangood_xt60_cable}. It is to connect the battery to Power Distribution Board without cutting cable (it would use the female XT60 cable). The male XT60 would be used to power the Jetson Nano.
+
+It should weights around 10g.
+
+\subsubsection{RC Receiver}
+Flysky 2.4G 6CH FS-iA6B \cite{bangood_receiver}. It has 6 channel. It is enough as we do not use RC much in this project.
+
+It weights 15g.
+
+Its dimensions are 47 x 26.2 x 15 mm.
+
+It is placed at the rear of the drone zip tied.
+
+\subsubsection{Dupont Cable Female to Female}
+\cite{bangood_dupont_cable}. It is to connect the \gls{fc} to the RC Receiver.
+
+Its length is 10cm.
+
+\subsubsection{Flight Controller}
+\begin{itemize}
+    \item PixRacer \cite{mrobotics_pixracer}. This \gls{fc} is compatible with all firmware. It is from the PixHawk series that is used a lot so a lot of resources is available for it. All cable and connector needed are delivered with it. It will be powered with the ESC BEC.
+
+          It weights 11g.
+
+          Its dimensions are 36 x 36 mm.
+
+          It is placed on top of the Power Distribution Board with standoff.
+
+    \item Navio2 \cite{emlid_navio2}. It is compatible with ArduPilot and PX4 not ROSflight. It is used coupled with a Raspberry Pi. All cable and connector needed are delivered with it. It will be powered with the power module \cite{emlid_power_module} provided with the Navio2. You have the response of Emlid about the hardware compatibility here \cite{emlid_rpi_compatibility}.
+
+          It weights 23g.
+
+          Its dimensions are 55 x 65 mm.
+
+          It is placed on top of the Raspberry Pi.
+\end{itemize}
+
+\subsubsection{Companion computer}
+\begin{itemize}
+    \item Jetson Nano. Already bought.
+
+          It weights 136g.
+
+          Its dimensions are 95.3 x 76.2 mm.
+
+          It is placed on top of the drone with Kyosho Zeal under it to dampen vibration.
+
+    \item Raspberry Pi 4. It is powered with Navio2.
+
+          It weights 50g.
+
+          Its dimensions are 87 x 58.5 mm.
+
+          It is placed on top of the drone.
+\end{itemize}
+
+\subsubsection{Anti-vibration}
+\begin{itemize}
+    \item Anti-Vibration Standoff \cite{bangood_standoff}. It dampens the vibration propagated to the PixRacer.
+
+    \item Kyosho Zeal \cite{amazon_kyosho}. It dampens the vibration propagated to the Raspberry Pi by putting it under the Raspberry case.
+\end{itemize}
+
+\subsubsection{Wifi module}
+300Mbps Wireless usb adapter \cite{amazon_panda_wifi_module}. It has 300 Mbps bandwidth so the router could support around 13 drones. The router has a bandwidth of 4000Mbps.
+
+It weights 9g.
+
+It is placed on a usb port of the Jetson Nano or the Raspberry Pi.
+
+\subsubsection{XT60 to 2.1-5.5mm dc plug}
+\cite{bangood_xt60_connector}. It is to power the Jetson Nano.
+
+It should weights around 5g.
+
+\subsubsection{Low-voltage Alarm}
+\cite{bangood_battery_monitor}. It is to warn when the lipo battery is low as it could damage it to use it when it is discharged.
+
+It weights 11g.
+
+It is placed at the rear of the drone.
+
+{\color{blue}The next items are not on the drone}
+
+\subsubsection{RC Transmitter}
+Flysky i6X FS-i6X 2.4GHz 10CH \cite{bangood_transmitter}. It is compatible with the RC receiver. It has 10 channel that is 4 more than the receiver. It could be useful for future project with a need of more channel. Another RC transmitter would not have to be bought.
+
+\subsubsection{Battery Charger}
+\cite{bangood_battery_charger}. It is compatible with the battery.
+
+\subsubsection{Propeller Balancer}
+\cite{bangood_prop_balancer}. It is to balance propeller.
+
+\subsubsection{Weight}
+The total weight of the drone is around 700g.
+
+\subsubsection{Simulation}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{design/ecalc.png}
+    \caption{eCalc copter simulation}
+    \label{fig:ecalc}
+\end{figure}
 
 \textbf{Frame:}
 \begin{itemize}
@@ -351,11 +351,11 @@ do same for every component
 
 we have already 5 jetson nanos, they have mainly very good gpu. we can still buy smaller rasppie4 for the smallest drone. Please check this link \cite{rpi_products} and let me know which accessories you need for the rpie4. CPU of rasp 4 is even better than jetson nano (just a bit). For both onboard computers list wich of the ports and you will need to use (so that you think which cables you need, see below).
 
-\textbf{Cables:} REALLY IMPORTANT, that's why you have to go several times to this process 
+\textbf{Cables:} REALLY IMPORTANT, that's why you have to go several times to this process
 
 \textbf{Connectors:} REALLY IMPORTANT, that's why you have to go several times to this process
 
-\textbf{add any other component that is missing:} 
+\textbf{add any other component that is missing:}
 
 
 \textbf{Quadrotor Design, Development and Specs:}
@@ -371,7 +371,7 @@ Once the compoenents arrive and you build it, give some tips, suggestions, instr
 
 SPECS:
 
-Explain how all these compoenents achieve the overal requirements. I think you cna show figure of the program you used, but also EXPLAIN what you input (values with physical units) and what comes out. I would also prefer you do a quick calculation yourself for the thrust to weight ratio if you know mass and nominal and max thrust of 1 motor + prop it is easy to calculate, so show forumula and compare with the output of the program. 
+Explain how all these compoenents achieve the overal requirements. I think you cna show figure of the program you used, but also EXPLAIN what you input (values with physical units) and what comes out. I would also prefer you do a quick calculation yourself for the thrust to weight ratio if you know mass and nominal and max thrust of 1 motor + prop it is easy to calculate, so show forumula and compare with the output of the program.
 
 
 Before you go to the next build, go several times through the report from very beginning to here and make sure you are 100\% sure about your choices and happy with the structure of the report till here. Also go through the questions section below. The fact that there where still many questions about even the software to use is that you have to write it down in a structured way earlier. Not just bullet points. really explain for people who did not go through your thinking process why there are some problems. somebody totally new to this topic should read it smoothly and have all the info to start with this project. So make sure that when i go though this text i don't ask the same questions.
@@ -379,20 +379,20 @@ Before you go to the next build, go several times through the report from very b
 {\color{red}TODO JONATHAN: send me asap a message when done with this so i cna check everything. \\}
 
 \section{Drone build Udemy Course + Answers}
-    {\color{red} Keep what is important from this sectien then delete}
-    Add a lipo fireproof bag
-    
-    Buy extra esc for spare part and oversize esc. In our case max current is estimated around 11.44A by ecalc so we use 20A. Link to a lighter 20A ESC \cite{bangood_racerstar}.
-    
-    Buy 3 blade propeller instead of 2 blade propeller. More thrust for a bit more current consumption \cite{bangood_propeller_3_blade}.
-    
-    For battery <n>S the higher the n the more thrust but more current draw hence more weight on the drone.
-    
-    It is possible to 3d print the feet of the drone.
-    
-    We need heat shrink or insulation tape, m3 screw, Bullet Banana connector for esc to motor \cite{bangood_bullet_banana_connector}.
-    
-    The Udemy course use a RC telemetry but it is not necessary as we use wifi as telemetry. Instruction to setup wifi telemetry \cite{emlid_ardupilot_installation}.
-    
-    
-    It is advised to control the attitude rate instead of motor pwm as if there is connection problem the drone could crash \cite{px4_low_level_control}.
+ {\color{red} Keep what is important from this sectien then delete}
+Add a lipo fireproof bag
+
+Buy extra esc for spare part and oversize esc. In our case max current is estimated around 11.44A by ecalc so we use 20A. Link to a lighter 20A ESC \cite{bangood_racerstar}.
+
+Buy 3 blade propeller instead of 2 blade propeller. More thrust for a bit more current consumption \cite{bangood_propeller_3_blade}.
+
+For battery <n>S the higher the n the more thrust but more current draw hence more weight on the drone.
+
+It is possible to 3d print the feet of the drone.
+
+We need heat shrink or insulation tape, m3 screw, Bullet Banana connector for esc to motor \cite{bangood_bullet_banana_connector}.
+
+The Udemy course use a RC telemetry but it is not necessary as we use wifi as telemetry. Instruction to setup wifi telemetry \cite{emlid_ardupilot_installation}.
+
+
+It is advised to control the attitude rate instead of motor pwm as if there is connection problem the drone could crash \cite{px4_low_level_control}.
