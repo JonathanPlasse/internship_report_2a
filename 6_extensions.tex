@@ -12,7 +12,7 @@ Explain how to deploy code to all Raspberry Pi.
     \item
 \end{itemize}
 
-\subsection{ROS}
+\subsection{ROS Setup}
 \subsubsection{Setup on computer}
 \begin{enumerate}
     \item Run on your computer
@@ -60,7 +60,7 @@ TELEM1="-A udp:192.168.1.100:14550"
 # by this line
 TELEM1="-A udp:127.0.0.1:14650" #same for all Raspberry Pies
 # Save the change
-                    \end{minted}
+          \end{minted}
 
     \item Run \texttt{sudo systemctl restart arducopter} to apply change and restart arducopter.
     \item Go into the \texttt{MAVROS} folder with \texttt{roscd mavros}.
@@ -83,7 +83,7 @@ TELEM1="-A udp:127.0.0.1:14650" #same for all Raspberry Pies
 <arg name="gcs_url" default="udp://:14551@192.168.1.100:140<xx>" />
 # the fcu_url is the url of the Raspberry Pi local telemetry
 # the gcs_url is the url of my computer for the Ground Control Station
-                \end{minted}
+\end{minted}
 
 To execute the launch file at the Raspberry Pi start up. A service called \texttt{mavros} has been created.
 For more information on service check \ref{services}.
@@ -120,10 +120,39 @@ WantedBy=multi-user.target
           \begin{minted}{bash}
 /mavros<xx>
 /rosout
-                    \end{minted}
+          \end{minted}
     \item \texttt{rosservice call /mavros/set\_stream\_rate 0 10 1}
     \item \texttt{rostopic echo /mavros/imu/data}
 \end{enumerate}
+
+\subsection{ROS nodes}
+ROS is now setup and all Raspberry Pi and the ground station computer.
+It is now explained which nodes will be used for the future of this project.
+This is a proposition of implementation.
+
+\subsubsection{Node list}
+
+The following nodes are the one that are already implemented.
+
+\begin{description}
+    \item[vicon\_bridge] get the absolute position of the drone from the VICON system.
+          It run on the ground station computer.
+    \item[mavros] is a bridge between the ArduPilot firmware and ROS.
+          The drone can be controlled from this node.
+\end{description}
+
+The following nodes are the one that will have to be implemented
+
+\begin{description}
+    \item[vicon2mavros] transmit the data from \texttt{vicon\_bridge} to \texttt{mavros}.
+          Then \texttt{mavros} send the absolute position to the EKF.
+    \item[drone2drone] transmit data from the drone and vicon from drone to drone.
+          the data transmitted can be customized.
+\end{description}
+
+There is one \texttt{mavros}, \texttt{vicon2mavros} and \texttt{drone2drone}
+node for each drone. To avoid conflict, \texttt{<xx>} is added to their name (e.g. mavros01, drone2drone42).
+All the nodes can run on the ground station control or one can run on each drone.
 
 \section{Simulation}
 
