@@ -152,7 +152,7 @@ The following nodes are the one that will have to be implemented
 
 There is one \texttt{mavros}, \texttt{vicon2mavros} and \texttt{drone2drone}
 node for each drone. To avoid conflict, \texttt{<xx>} is added to their name (e.g. mavros01, drone2drone42).
-All the nodes can run on the ground station control or one can run on each drone.
+All these nodes can run on the ground station control or one can run on each drone.
 
 \section{Simulation}
 
@@ -286,18 +286,8 @@ The last commit is from 4 years ago but it should still work according to \href{
 \subsubsection{VRPN}
 It is a network based interface to access data of motion capture software. It is compatible only with Vicon Tracker and not with Vicon Nexus. It works out of the box with \href{https://wiki.ros.org/vrpn_client_ros}{vrpn\_client\_ros}. When an object is created in Vicon Tracker, the object information is stream automaticaly via vrpn.
 
-\subsection{ROS Integration}
-\href{https://answers.ros.org/question/329849/which-ros-package-use-with-vicon/}{This post} ask which ROS package use with Vicon.
-
-\href{https://discuss.ardupilot.org/t/position-hold-with-vision-position-estimate-and-att-pos-mocap-for-indoor-localization/29626/5}{This thread} speak in detail about different people implementing MoCap system with drones.
-
-\href{https://support.middlevr.com/hc/en-us/articles/203900225-Using-a-Vicon-tracker-via-VRPN}{Using a Vicon tracker via VRPN}
-
-\href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{This} is an SDK for Vicon.
-
-Vicon Nexus does not have vrpn server \href{https://forum.worldviz.com/printthread.php?s=aff0c689c7c7ff36a324fa2335838db4&t=4273}{ref}. So we have to use either \href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{Vicon Datastream SDK} with \href{https://github.com/USC-ACTLab/libmotioncapture}{\texttt{libmotioncapture}} from USC-ACTLab and make ros package on top or use Vicon Tracker that has a vrpn server and use \texttt{vrpn\_client\_ros}.
-
-\href{http://ardupilot.org/copter/docs/common-optitrack.html#common-optitrack}{This} is a project with Optitrack
+\subsection{Implementation}
+\href{http://ardupilot.org/copter/docs/common-optitrack.html#common-optitrack}{This} is a project with Optitrack. There is a resources about how to pass the position and attitude of the drone given by the VICON system to the EKF of the drone, how to set up the EKF.
 
 \section{Drone control}
 PX4 \href{https://discuss.ardupilot.org/t/offboard-control/37869}{page} for Offboard control.
