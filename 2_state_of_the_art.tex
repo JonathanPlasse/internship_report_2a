@@ -83,7 +83,7 @@ It has a good documentation.
 It is tested a lot and the users report problem when they arise.
 
 There is a pull request to directly sent PWM command from the onboard computer to the motor but it has not been active for 5 months \cite{github_px4_10863}. It is not going to happen soon.
-There is also a possible solution that I posted here \cite{px4_low_level_control}.
+There is also a possible solution posted here \cite{px4_low_level_control}.
 
 
 
@@ -114,12 +114,12 @@ About ROS, there is only one roscore needed on a network \cite{stackoverflow_mul
 So, the ground control station run roscore and stream vicon data to the drones. It would also create log file.
 The \gls{oc} on the drones would run either \texttt{MAVROS} or \texttt{rosflight\_io}.
 It would also run the control algorithm.
-{\color{red} \\Please also discuss the current and coming capability for ROS2 which would be ideal for real-time and multi-robot system. I think PX4 is most advanced in this, see project status roadmap ref project status \cite{px4}, also ref \cite{ros_wiki_ng_drones}. I think the advantages that ROS2 brings are of a great asset for computation and communication for the need of this project.\\}
+{\color{red} \\Please also discuss the current and coming capability for ROS2 which would be ideal for real-time and multi-robot system. PX4 is surely the most advanced in this, see project status roadmap ref project status \cite{px4}, also ref \cite{ros_wiki_ng_drones}. The advantages that ROS2 brings are of a great asset for computation and communication for the need of this project.\\}
 
-There is also ROS2,
+There is also ROS2, it is a new version of ROS that can be use without a master, it supports real-time and it has retro-compatibility with ROS1. But, it is still under heavy development, for now it is not advise to use ROS2.
 
 \subsection{Vicon}
-I did not found any project that used Vicon.
+{\color{red} cite optitrack project to use as a model}
 \texttt{vrpn\_client\_ros} or \texttt{libmotioncapture}.
 
 Maybe \texttt{vrpn\_client\_ros} would be more adapted to our project as it use ros or ros package could be created around \texttt{libmotioncapture}.
@@ -152,7 +152,7 @@ But, some firmware modification has to be done.
 
 \subsection{Simulator}
 All firmware have SIL/SITL simulator.
-Only PX4 can simulate multiple drone out of the box {\color{red}and even in ROS2!}. I asked the question \cite{px4_ros2}.
+Only PX4 can simulate multiple drone out of the box {\color{red}and even in ROS2!}. It is advise here \cite{px4_ros2} to ROS1 as a first implementation and only use ROS2 if there is really a need.
 
 \subsection{Serial bus}
 Both Jetson Nano and Raspberry Pi have a hadware serial port.\\
