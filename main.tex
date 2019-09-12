@@ -19,7 +19,6 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-
 \newglossaryentry{fc}
 {
     name=flight controller,
@@ -81,9 +80,21 @@
 \printglossary[type=\acronymtype]
 \printglossary
 
-\printbibliography[heading=bibintoc,title={Whole Bibliography}]
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography[heading=subbibintoc,keyword={store},title={Store}]
 \printbibliography[heading=subbibintoc,keyword={simulation},title={Simulation}]
 \printbibliography[heading=subbibintoc,keyword={question},title={Q \& A on Forums}]
+\printbibliography[heading=subbibintoc,keyword={ardupilot},title={ArduPilot}]
+\printbibliography[heading=subbibintoc,keyword={px4},title={PX4}]
+\printbibliography[heading=subbibintoc,keyword={emlid},title={Emlid}]
+\printbibliography[heading=subbibintoc,keyword={ardupilot},title={ArduPilot}]
+\printbibliography[heading=subbibintoc,keyword={ros},title={ROS}]
+\printbibliography[heading=subbibintoc,keyword={network},title={Network}]
+\printbibliography[heading=subbibintoc,keyword={design},title={Design}]
+\printbibliography[heading=subbibintoc,keyword={rpi},title={Raspberry Pi}]
+\printbibliography[heading=subbibintoc,keyword={jetson},title={Nvidia Jetson Nano}]
+\printbibliography[heading=subbibintoc,keyword={qgc},title={QGroundControl}]
+\printbibliography[heading=subbibintoc,keyword={other},title={Other}]
 
 \end{document}

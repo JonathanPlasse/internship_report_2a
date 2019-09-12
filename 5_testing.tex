@@ -87,10 +87,10 @@ If you ever change the password and lost it, it can be recovered with this \ref{
 You can configure a connection to the internet in the WiFi network by connecting the router via an Ethernet cable.
 
 \subsubsection{Reserve fixed IP address}
-Once this is done, you reserve an LAN IP address for the Raspberry Pi and the computer using \href{https://kb.netgear.com/24091/How-do-I-reserve-a-LAN-IP-address-on-my-Nighthawk-router}{this method}.
+Once this is done, you reserve an LAN IP address for the Raspberry Pi and the computer using this method \cite{netgear_reserve_ip}.
 \begin{enumerate}
     \item Assure that the device you want to reserve an IP address is connected to the wifi. For the Raspberry Pi, doing the preceding steps, power it up and wait a minute should be enough.
-    \item Assure that your computer is connected to the Nighthawk router with wifi. And do not connect to other network, it can cause problems (e.g. not being able to connect to http://www.routerlogin.net).
+    \item Assure that your computer is connected to the Nighthawk router with wifi. And do not connect to other network, it can cause problems (e.g. not being able to connect to \url{http://www.routerlogin.net}).
     \item Connect to \url{http://www.routerlogin.net} in a browser.
     \item Enter username \texttt{admin} and password \texttt{password}.
     \item Select \emph{ADVANCED > Setup > LAN Setup}.
@@ -122,7 +122,7 @@ Now, we can ssh the Raspberry Pi using on the computer
 \end{enumerate}
 
 \subsubsection{Create an SSH key}
-To connect via ssh to the Raspberry Pi without typing the password, \href{https://www.ssh.com/ssh/copy-id}{this tutorial} was followed with some alterations. An ssh key was created on the computer and shared it to the Raspberry Pi to identify the computer automatically.
+To connect via ssh to the Raspberry Pi without typing the password, this tutorial \cite{ssh_ssh_copy_id} was followed with some alterations. An ssh key was created on the computer and shared it to the Raspberry Pi to identify the computer automatically.
 
 \begin{enumerate}
     \item open a terminal and type cd .ssh and ls. If the output is just $known_hosts$, it means you don't have keys yet.
@@ -143,7 +143,7 @@ ssh pi@192.168.1.1<xx> # For navio<xx>
                 \end{minted}
 
 \subsection{Setting Ardupilot}
-Follow \href{https://docs.emlid.com/navio2/common/ardupilot/installation-and-running/}{this page} of the Emlid documentation.
+Follow this page \cite{emlid_ardupilot_installation} of the Emlid documentation.
 
 \begin{enumerate}
     \item \texttt{sudo emlidtool ardupilot}
@@ -208,7 +208,7 @@ You will now setup QGroundControl to monitor the drones. More details can be fin
 CompassMot calibration was not used. It may improve the drone performance. To use it, the battery current monitor would have to be configured.
 
 \subsubsection{Flight Modes}
-There is a lot of different flight for Ardupilot \href{http://ardupilot.org/copter/docs/flight-modes.html}{this}.
+There is a lot of different flight for Ardupilot \cite{ardupilot_flight_modes}.
 \begin{enumerate}
     \item Set \texttt{Channel 5} for the \texttt{Flight mode channel}.
     \item Set \texttt{Alt. Hold} as \texttt{Flight Mode 1} and \texttt{Land} for the other.
@@ -242,7 +242,7 @@ As GPS is not use on this project. All the safety setup that use GPS has to be m
 \begin{enumerate}
     \item Plug the battery to the drone.
     \item Place the drone on a flat surface.
-    \item Wait the for the LED to flash red and blue and then it single flash yellow. If it double flash yellow the pre-arm checks failed. More on LED meaning \href{http://ardupilot.org/copter/docs/common-leds-pixhawk.html}{here}.
+    \item Wait the for the LED to flash red and blue and then it single flash yellow. If it double flash yellow the pre-arm checks failed. More on LED meaning here \cite{ardupilot_leds}.
     \item Power on the transmitter. The LED should flash blue.
     \item Select the flight mode on the transmitter you want to use with the knob \texttt{VRA}.
     \item Arm the drone by placing the throttle stick to the bottom right for 2 seconds. When the LED is solid blue release the throttle stick. The motor will start to spin.
