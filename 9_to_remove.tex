@@ -1,8 +1,6 @@
 \chapter{TO be checked what can be deleted or kept in other sections}
 \section{Frame}
-The choice of the drone frame is really important. The size of the frame will impact the choice of the propellers, the motors, the \acrshort{esc} and the battery. It has to be big enough to have enough space for all the components of the drone.
 
-As the aim is to create a swarm of drone, the smaller the frame is the better.
 
 The most stringent requirement for the choice of the frame is to fit the \gls{oc}. So, I choose the smallest size of frame that could fit the \gls{oc} and have propellers commonly used for this size. So, it was a 330mm frame with 7 inch propeller to have a hub diameter of 152mm \ref{fig:330_7} (enough to fit the \gls{oc}). But this size was to large, so a smaller was chosen at the cost of smaller propeller. The efficiency  is reduced as the propeller need to rotate faster which mean higher \gls{kv}. So, a size of 275mm frame with 5 inch propeller was choosen with a hub diameter of 148mm \ref{fig:275_5.png}.
 
@@ -44,15 +42,8 @@ Three frame have been selected from these criteria a 330mm frame (\hyperref[fig:
 \end{figure}
 
 \section{Propellers}
-The propellers have three major characteristics. Their size, their pitch, and their number of blades.
 
-The size of the propellers have been fixed by the size of the frame.
-
-The higher the pitch the higher the thrust but also the higher the torque needed. So it means more powerful motor. Moreover, the pitch should always be 2/3 of the propeller size because if it is higher it could cause air disturbances (Vortex Ring State). So, the pitch was chosen by taking the highest pitch on the market that respected the 2/3 ratio.
-
-The number of blades impact thrust and efficiency. More blades mean increased thrust but decreased efficiency. As, the drone just a need a thrust-weight ratio of 2, the number of blades chosen is 2.
-
-The propeller specification are generally either \emph{SxPxB} or \emph{SSPPxB}. S being the size, P the pitch and B the number of blades (e.g. for a size of 70mm and pitch of 4.5 and 2 blades, 7x4.5x2 and 7045x2).
+As, the drone just a need a thrust-weight ratio of 2, the number of blades chosen is 2.
 
 For the 330mm frame the propeller chosen was a \hyperref[fig:7045]{propeller 7045} and for the 275mm frame a \hyperref[fig:5030]{propeller 5030}.
 
@@ -71,9 +62,6 @@ For the 330mm frame the propeller chosen was a \hyperref[fig:7045]{propeller 704
 \end{figure}
 
 \section{Motors}
-The motors have different characteristics. Its width, height and KV.
-
-The width of the motor in our case will be 22mm
 
 Propeller adapter
 
@@ -88,12 +76,3 @@ Propeller adapter
 \section{Miscellaneous}
 
 \section{Weight}
-\centering
-\begin{tabular}{cccc}
-    Components & Quantities & Weight & Total \\
-    Frame      & 1          & 150g   & 150g  \\
-    Propeller  & 4          & 5g     & 20g   \\
-    Motor      & 4          & 30g    & 120g  \\
-    Battery    & 1          & 50g    & 50g   \\
-    PDB
-\end{tabular}
