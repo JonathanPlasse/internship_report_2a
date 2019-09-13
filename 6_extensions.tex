@@ -2,16 +2,6 @@
 
 \section{Multi-vehicle}
 
-\subsection{Deployment}
-Explain how to deploy code to all Raspberry Pi.
-\begin{itemize}
-    \item rsync
-    \item scp
-    \item ssh with commands
-    \item bash script (with check for success)
-    \item
-\end{itemize}
-
 \subsection{ROS Setup}
 \subsubsection{Setup on computer}
 \begin{enumerate}
@@ -153,6 +143,17 @@ The following nodes are the one that will have to be implemented
 There is one \texttt{mavros}, \texttt{vicon2mavros} and \texttt{drone2drone}
 node for each drone. To avoid conflict, \texttt{<xx>} is added to their name (e.g. mavros01, drone2drone42).
 All these nodes can run on the ground station control or one can run on each drone.
+
+\subsection{Deployment}
+As this project use multiple drone. Many things need to be done \texttt{xx} times (\texttt{xx} being the number of drones) but it does have to be done manually.
+Scripts can be written to automate most of the code deployment.
+
+These are some ideas for this project.
+\begin{description}
+  \item[rsync] can be used to synchronize files via ssh
+  \item[cross-compiling] on your computer and then send the binary to the Raspberry Pi \cite{hackaday_cross_compiling}.
+  \item[bash scripts] to avoid typing the all the commands in the terminal. Checking if the commands succeed is important to assure nothing wrong happened. \cite{ryanstutorials_bash_scripting}
+\end{description}
 
 \section{Simulation}
 
