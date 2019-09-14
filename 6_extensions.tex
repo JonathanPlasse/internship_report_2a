@@ -271,8 +271,12 @@ rqt
             \end{minted}
 
 \subsection{SITL + Gazebo + ROS}
+The simulation is the tool to test the different code implemented to control the drones.
+To do this ROS has to be used in parallel to the SITL and Gazebo.
 
-Resources to use SITL+Gazebo+ROS \cite{youtube_gazebo_ros} \cite{github_gazebo_ros}.
+If the code implemented works in simulation it should also work in practice.
+
+To use ROS in parallel of Gazebo there is these two resources that could be useful \cite{youtube_gazebo_ros} \cite{github_gazebo_ros}.
 
 
 
@@ -294,5 +298,3 @@ It is a network based interface to access data of motion capture software. It is
 PX4 \href{https://discuss.ardupilot.org/t/offboard-control/37869}{page} for Offboard control.
 
 ArduPilot \href{http://ardupilot.org/copter/docs/ac2_guidedmode.html#guided-nogps}{page} for guided mode with no\_gps
-
-The mavlink message \texttt{SET\_ATTITUDE\_TARGET} allow to control the attitude of the drone at the same altitude.
