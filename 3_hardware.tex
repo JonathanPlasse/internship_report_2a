@@ -28,57 +28,67 @@ S being the size, P the pitch and B the number of blades
 \subsubsection{Motors}
 The motors have different characteristics. Its width, height and KV.
 
+These characteristics are in part fixed by the frame and the propellers.
+
 Some motors comes with propeller adapter.
 
 \subsubsection{ESCs}
-The ESC have to major characteristics, their current limit and their max voltage input in S unit (number of cell of lipo battery).
+The ESC have to major characteristics, their current limit and their max voltage input in S unit,number of cell of LiPo battery (e.g. 3S).
 
 The motor current consumption should never exceed the ESC current limit.
 
 \subsubsection{Battery}
-voltage number of cells S, capacity mAh, current draw C-rating, parallel cells P.
+The battery has a voltage fixed by its number of cells, $3.7V$ nominal per cell.
+It has a capacity in mAh,
+The current draw the LiPo can support is its capacity times the C-rating.
+
+The motor current consumption should never exceed the maximum current draw of the LiPo.
 
 \subsubsection{Power distribution board}
-Max current, BEC, Max voltage.
+The PDB has a max current and max voltage that should not be exceeded.
 
 \subsubsection{RC Receiver}
+For a drone, the minimum amount of channel for a receiver is 6.
+The receiver can either send to the flight controller the received signal via PWM or PPM.
 
 \subsubsection{Flight Controller}
+The flight controller is a electronic board with sensors (e.g. accelerometer, gyroscope, barometer…).
+
+The choice of a flight controller often depends on the compatibility of the firmware wanted. For autonomous drone, the flight controller should be compatible with ArduPilot or PX4 and for racing, It should be compatible with Betaflight.
 
 \subsubsection{Companion computer}
+The companion computer on a drone has to be light and not take to much place (it is a major concern).
 
-\subsubsection{Wifi module}
+\subsubsection{WiFi module}
+The WiFi module should be selected with the bandwidth required and it should be compatible with the companion computer.
 
 \subsubsection{Cables and Connectors}
+Some of the cables and connectors can come with the previous components but often some has to be bought.
+
+It is an important step to verify that everything will be able to be connected to the other components.
 
 \subsubsection{Attaching components}
 Straps, screws, mounting tape and zip ties are used to attach the different components of the drone.
 
-\subsubsection{Anti-vibration}
-\begin{itemize}
-    \item Anti-vibration spacer
-    \item Anti-vibration gel (e.g. Kyosho Zeal)
-    \item Mounting tape
-\end{itemize}
-
-\subsubsection{Power connection for flight controller and onboard computer}
+\subsubsection{Anti-vibration system}
+It is important to reduce the vibration of the sensors on the drone to have accurate data.
 
 \subsubsection{Low-voltage Alarm}
-It is to warn when the lipo battery is low as it could damage it to use it when it is discharged.
-
+An alarm for low-voltage is important to avoid continuing to fly with an empty LiPo battery that could degrade and even catch fire.
 
 \subsection{Components on the ground}
 
 \subsubsection{RC Transmitter}
-It could be useful for future project with a need of more channel. Another RC transmitter would not have to be bought.
+As told previously, an transmitter with 6 channels is enough for a drone. But to avoid, buying another transmitter for other projects that need more channel. It is interesting to buy a 8 or 10 channels transmitter.
 
 \subsubsection{Battery Charger}
-It is compatible with the battery.
+The battery charger has to be compatible with LiPo with the corresponding voltage.
 
 \subsubsection{LiPo Fireproof Bag}
+To recharge LiPo safely using a fireproof bag is a most.
 
 \subsubsection{Propeller Balancer}
-It is to balance propeller.
+The Propeller Balancer is used to balance propeller to avoid vibrations.
 
 
 
@@ -226,6 +236,11 @@ list which of the ports will be needed
     \item Anti-Vibration Standoff \cite{bangood_standoff}. It dampens the vibration propagated to the PixRacer.
 
     \item Kyosho Zeal \cite{amazon_kyosho}. It dampens the vibration propagated to the Raspberry Pi by putting it under the Raspberry case.
+\end{itemize}
+\begin{itemize}
+    \item Anti-vibration spacer
+    \item Anti-vibration gel (e.g. Kyosho Zeal)
+    \item Mounting tape
 \end{itemize}
 
 \subsubsection{Wifi module}
