@@ -10,7 +10,8 @@
           \begin{minted}{bash}
     # Install the ros package mavros
     sudo apt install ros-<distribution>-mavros
-    # Setup tell ROS what is the IP address of this computer (change 192.168.1.100 by your computer IP address if you use a different one)
+    # Setup tell ROS what is the IP address of this computer
+    # (change 192.168.1.100 by your computer IP address if you use a different one)
     echo "export ROS_IP=192.168.1.100" >> ~/.bashrc
     # Apply modification
     source ~/.bashrc
@@ -164,7 +165,7 @@ These \href{http://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html}{instruc
 
 \begin{minted}{bash}
 # Setting up the Build Environment on Linux
-    # Clone ArduPilot repository with Copter 3.6 version
+# Clone ArduPilot repository with Copter 3.6 version
 cd ~
 git clone -b Copter-3.6 https://github.com/ArduPilot/ardupilot
 cd ardupilot
@@ -177,7 +178,7 @@ Tools/environment_install/install-prereqs-ubuntu.sh -y
 # Start SITL simulator
 cd ~/ardupilot/ArduCopter
 sim_vehicle.py --console --map
-            \end{minted}
+\end{minted}
 
 Install the full desktop version of ROS Melodic using this \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{link}.
 
@@ -197,7 +198,7 @@ Replace inside
 url: https://api.ignitionfuel.org
 by
 url: https://api.ignitionrobotics.org
-            \end{verbatim}
+\end{verbatim}
 
 Then, the ArduPilot for Gazebo Simulator is installed
 \begin{minted}{bash}
@@ -217,7 +218,7 @@ gazebo --verbose worlds/iris_arducopter_runway.world
 # and in another terminal execute
 cd ~/ardupilot/ArduCopter
 ../Tools/autotest/sim_vehicle.py -f gazebo-iris --console --map
-            \end{minted}
+\end{minted}
 
 Installation of MAVROS \href{http://ardupilot.org/dev/docs/ros-install.html#installing-mavros}{link}
 \begin{minted}{bash}
@@ -236,8 +237,9 @@ sudo ./install_geographiclib_datasets.sh
 rm install_geographiclib_datasets.sh
 
 # The following command is cut in two lines as it did not fit on the page.
-sudo apt-get install ros-melodic-rqt ros-melodic-rqt-common-plugins\ ros-melodic-rqt-robot-plugins python-catkin-tools
-            \end{minted}
+sudo apt-get install ros-melodic-rqt ros-melodic-rqt-common-plugins\
+ros-melodic-rqt-robot-plugins python-catkin-tools
+\end{minted}
 
 Connect ArduPilot to ROS \href{http://ardupilot.org/dev/docs/ros-sitl.html}{link}
 \begin{minted}{bash}
