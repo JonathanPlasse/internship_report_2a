@@ -50,50 +50,26 @@ PX4 also have a SITL simulator.
 It should be possible to directly control the speed of the motors \cite{px4_low_level_control}.
 
 \section{A comparison between the different Frameworks}
-Every frameworks has a simulator to test the control algorithm.
-mavlink to communicate between the companion board and the flight controller, failsafe
-
-PX4 and ArduPilot are extremely similar.
-
 These blog posts provide a comparison of open source drone software frameworks \cite{drone_software_projects} and many flight controllers \cite{drone_flight_controllers}.
 
 \subsection{Communication}
-The communication between the companion computer and the flight controller of the drones are done with the MAVlink protocol. All firmware use MAVlink but each firmware has its own implementation. ArduPilot and PX4 use MAVROS and ROSflight use rosflight\_io
-
-\subsection{Network}
-There is one ground control station and the companion computer of the drones are connected to it via wifi.
+The communication between the companion computer and the flight controller of the drones are done with the MAVlink protocol. All firmware use MAVlink but each firmware has its own implementation.
 
 \subsection{ROS}
-About ROS, there is only one roscore needed on a network \cite{stackoverflow_multi_machine}.
-So, the ground control station run roscore and stream vicon data to the drones. It would also create log file.
-The companion computer on the drones would run either \texttt{MAVROS} or \texttt{rosflight\_io}.
-It would also run the control algorithm.
-{\color{red} \\Please also discuss the current and coming capability for ROS2 which would be ideal for real-time and multi-robot system. PX4 is surely the most advanced in this, see project status roadmap ref project status \cite{px4}, also ref \cite{ros_wiki_ng_drones}. The advantages that ROS2 brings are of a great asset for computation and communication for the need of this project.\\}
+Every autopilot software can interface with ROS. But, there is only PX4 that compatible with ROS2.
 
-There is also ROS2, it is a new version of ROS that can be use without a master, it supports real-time and it has retro-compatibility with ROS1. But, it is still under heavy development, for now it is not advise to use ROS2.
+ROS2 is a new version of ROS that can be use without a master, it supports real-time and it has retro-compatibility with ROS1. But, it is still under heavy development, it is advise to use ROS2 only if its features are indispensable.
 
 \subsection{Vicon}
-\cite{ros_wiki_vicon_bridge}
-\cite{px4_vicon}
-\cite{ardupilot_vicon}
+There are project that used vicon with ArduPilot \cite{ardupilot_vicon} and PX4 \cite{px4_vicon}.
 
 \subsection{Extended Kalman Filter}
-ArduPilot and PX4 have the \gls{ekf} on the flight controller.
-The MAVLINK message \texttt{ATT\_POS\_MOCAP} has been to created to give the data of Vicon to the \gls{ekf}.
+Both ArduPilot and PX4 have an EKF running on the flight controller contrarily to ROSflight where it is an extension given by ROScopter.
 
-ROSflight has just a complementary filter on the flight controller (a simpler algorithm).
-But, it is possible to run an \gls{ekf} on the companion computer with ROScopter but it would have to be modify to add vicon support.
+It is possible to give the absolute postion data from the motion capture system to the EKF of ArduPilot and PX4 but not ROSflight as it has not been implemented.
 
-Running the \gls{ekf} on the flight controller means that vicon data has to be sent to the flight controller and then the \gls{ekf} estimation has to be sent back to the companion computer.
-
-Running the \gls{ekf} run on the companion computer means that the flight controller has to sent the sensor data to the companion computer and optionally sent back the \gls{ekf} estimation to the flight controller if we want to use the flight controller as controller.
-
-For the second solution, the EKF needs to be implemented and tuned.
-The first solution is easier to set up and would be ideal if we want to compare the performance of our own control algorithm to the PX4 and ArduPilot numerous flight mode but ROSflight would not have a position estimate from Vicon.
-
-\subsection{Sending PWM command}
-ROSflight is the most advanced, in the implementation.
-{\color{red}Explain how the solution of raspberry pie and the emlid navio2 deck. Would there be less latency and bandwidth problems if evrything is running on the rasppie 3/4? Just having all computation in 1 unit seems very interesting to me.}
+\subsection{Direct control of motor speed}
+Every autopilot software has solution to directly control the motor speed but only ArduPilot has a solution that is already implemented.
 
 \subsection{Swarm compatibility}
 Both ArduPilot \cite{ardupilot_multi_vehicle} and PX4 \cite{px4_multi_vehicle}
@@ -104,20 +80,7 @@ But, some firmware modification has to be done.
 
 \subsection{Simulator}
 All firmware have SIL/SITL simulator.
-Only PX4 can simulate multiple drone out of the box {\color{red}and even in ROS2!}. It is advise here \cite{px4_ros2} to ROS1 as a first implementation and only use ROS2 if there is really a need.
-
-\subsection{Serial bus}
-Both Jetson Nano and Raspberry Pi have a hadware serial port.\\
-ROSflight \cite{rosflight_parameters},
-ArduPilot \cite{ardupilot_serial_parameters},
-PX4 \cite{px4_serial_parameters},
-can all configure their baud rate at least up to 115200. That is a baudrate that
-Jetson Nano \cite{jetsonhacks_serial}
-and
-Raspberry Pi support \cite{rpi_stackexchange_serial}.
-Higher baud rate can be tested when the flight controller has arrived.
-
-
+Only PX4 can simulate multiple drone out of the box.
 
 \subsection{Flight controller}
 \subsubsection{OpenPilot Revolution}
@@ -133,11 +96,11 @@ A small version of it is the PixRacer that is more abordable and adapted for thi
 \subsubsection{Navio2+Raspberry Pi 4}
 As the Raspberry Pi 4 has just been released it has different problems that has not been solved such as overheating, firmware problems… It is not software compatible with the NAVIO2 at the moment, they will release an new image when they will have done some test. It is adviced to wait until it had a bit of time on the market. So for now the raspberry pi 4 is not reliable enough for this project \cite{ardupilot_rpi_compatibility}.
 
-If we use the Raspberry Pi 3B+ with Navio2, the frequency update is limited to 400Hz \cite{emlid_pwm_frequency}.
+If we use the Raspberry Pi 3B+ with Navio2.
 
 Here is a blog post about Navio2 + Raspberry Pie \cite{dojofordrones_rpi_drone}.
 
-It is not recommended to directly control pwm and at the same time running ArduPilot \cite{emlid_servo_control}. It is recommended to control pwm via ArduPilot. It has to communicate via MAVLINK like the other flight controllers.
+It is not recommended to directly control pwm and bypassing ArduPilot that is running \cite{emlid_servo_control}. It is recommended to control pwm via ArduPilot. It has to communicate via MAVLINK like the other flight controllers.
 
 \subsection{On-board Computer}
 \subsubsection{Nvidia Jetson Nano}
@@ -155,9 +118,9 @@ A lot of project have been done with it.
 There is a shield produce by the emlid company called Navio2. That add the functionality of flight controller to it.
 
 \section{Conclusion}
-ROSflight is a lightweight solution. The bare minimum is implemented, everything else has to be implemented and ROScopter add some functionality. But, it cannot compare to the full-fledged ArduPilot and PX4 \cite{reddit_firmware_ros}. Moreover, when somebody asked on forum if they should use ROSflight, it was recommended to use either ArduPilot or PX4 \cite{reddit_swarm_ros}.
+ROSflight is a lightweight solution where every new functionality has to be implemented.
+It does not have a large community to help with questions and all the features of ArduPilot and PX4. So, the choice is between ArduPilot and PX4
 
-In term of hardware, RaspberryPi4 + Navio2 is the easiest solution to directly control PWM outputs
+Raspberry Pi and Navio is the most compact solution that exist and it comes with ArduPilot and ROS already installed with it.
 
-    {\color{red}For me this conclusion is partially correct. I feel like the raspberry pie + navio idea is missing. }
-    {\color{red}I feel more that ArduPilot and PX4 are so advanced that it would take somuch time to get even just some of the functionality in ROSflight. also the fact that e.g. with ArduPilot there are many types of systems we can use it very interesting for multi-robot. So I would put focus on ArduPilot/PX4 since they are very similar. But then the solution of a small rasppie 3 (and later 4) with navio 2 deck would be very relevant. also to add other motors for uav with arm for example we can use pins of rasppie. And rasppie is used by so many people.}
+Ardupilot is the solution chosen. PX4 is still an option that can be explored in the future of this project.
