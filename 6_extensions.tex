@@ -298,3 +298,7 @@ It is a network based interface to access data of motion capture software. It is
 PX4 \href{https://discuss.ardupilot.org/t/offboard-control/37869}{page} for Offboard control.
 
 ArduPilot \href{http://ardupilot.org/copter/docs/ac2_guidedmode.html#guided-nogps}{page} for guided mode with no\_gps
+
+To control the speed of the motor a solution was proposed \cite{github_ardupilot_11859}.
+It consist in setting the right parameters and sending mavlink messages.
+\texttt{SERVO<X>\_FUNCTION=RCIN<Y>PASSTHROUGH} and \texttt{RC\_CHANNELS\_OVERRIDE}.

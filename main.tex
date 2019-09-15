@@ -19,18 +19,6 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-\newglossaryentry{fc}
-{
-    name=flight controller,
-    description={It is …}
-}
-
-\newglossaryentry{oc}
-{
-    name=on-board computer,
-    description={It is computer on a drone. In our case it is a Nvidia Jetson Nano}
-}
-
 \newglossaryentry{kv}
 {
     name=KV,
@@ -41,6 +29,12 @@
 {
     name=Extended Kalman Filter,
     description={It is an algorithm that calculate in our case an estimate of the position and orientation the drone with the sensor data of the flight controller and the MoCap system}
+}
+
+\newglossaryentry{sitl}
+{
+    name=SITL,
+    description={Software in the loop (SITL) is a simulator that allows to run the autopilot code to test its behavior without hardware.}
 }
 
 \newacronym{gcs}{GCS}{Ground Control Station}
