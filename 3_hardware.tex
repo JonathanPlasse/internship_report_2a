@@ -37,6 +37,8 @@ The ESC have to major characteristics, their current limit and their max voltage
 
 The motor current consumption should never exceed the ESC current limit.
 
+It is advise to buy extra spare esc and oversize them as it is a critical part of the drone.
+
 \subsubsection{Battery}
 The battery has a voltage fixed by its number of cells, $3.7V$ nominal per cell.
 It has a capacity in mAh,
@@ -89,9 +91,6 @@ To recharge LiPo safely using a fireproof bag is a most.
 
 \subsubsection{Propeller Balancer}
 The Propeller Balancer is used to balance propeller to avoid vibrations.
-
-
-
 
 
 \section{Specific Design of this Project}
@@ -300,24 +299,3 @@ Explain how all these compoenents achieve the overal requirements. I think you c
 
 
 Before you go to the next build, go several times through the report from very beginning to here and make sure you are 100\% sure about your choices and happy with the structure of the report till here. Also go through the questions section below. The fact that there where still many questions about even the software to use is that you have to write it down in a structured way earlier. Not just bullet points. really explain for people who did not go through your thinking process why there are some problems. somebody totally new to this topic should read it smoothly and have all the info to start with this project. So make sure that when i go though this text i don't ask the same questions.
-
-{\color{red}TODO JONATHAN: send me asap a message when done with this so i cna check everything. \\}
-
-\section{Drone build Udemy Course + Answers}
- {\color{red} Keep what is important from this sectien then delete}
-Add a lipo fireproof bag
-
-Buy extra esc for spare part and oversize esc. In our case max current is estimated around 11.44A by ecalc so we use 20A. Link to a lighter 20A ESC \cite{bangood_racerstar}.
-
-Buy 3 blade propeller instead of 2 blade propeller. More thrust for a bit more current consumption \cite{bangood_propeller_3_blade}.
-
-For battery <n>S the higher the n the more thrust but more current draw hence more weight on the drone.
-
-It is possible to 3d print the feet of the drone.
-
-We need heat shrink or insulation tape, m3 screw, Bullet Banana connector for esc to motor \cite{bangood_bullet_banana_connector}.
-
-The Udemy course use a RC telemetry but it is not necessary as we use wifi as telemetry. Instruction to setup wifi telemetry \cite{emlid_ardupilot_installation}.
-
-
-It is advised to control the attitude rate instead of motor pwm as if there is connection problem the drone could crash \cite{px4_low_level_control}.
