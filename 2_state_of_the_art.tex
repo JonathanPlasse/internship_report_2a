@@ -3,8 +3,9 @@
 For the following discussion it is assumed that the drone has an companion computer.
 The aim is to test a computationally demanding low-level control algorithm directly controlling the speed of the motor of the drone. This is today impossible on most of the available flight controllers.
 
+\section{Autopilot software}
 
-\section{ROSflight \& ROScopter}
+\subsection{ROSflight \& ROScopter}
 The core strength of ROSflight is that it has been designed to control a drone with a companion computer, and it has an easy-to-understand code base that is kept lean.
 It is easy to build on top of ROSflight to add functionalities. The project ROScopter \cite{github_roscopter} for example add the support of waypoint position control.
 
@@ -17,7 +18,7 @@ ROSflight have a \gls{sitl} simulator.
 
 It should be possible to directly control the speed of the motors \cite{github_rosflight_98}.
 
-\section{ArduPilot}
+\subsection{ArduPilot}
 ArduPilot and more precisely ArduCopter has a lot of features.
 It has numerous flight modes.
 \Gls{ekf} is computed on the flight controller.
@@ -33,7 +34,7 @@ ArduPilot also have a \gls{sitl} simulator.
 
 It is possible to directly control the speed of the motors \cite{github_ardupilot_11859}.
 
-\section{PX4}
+\subsection{PX4}
 PX4 has a lot of features.
 It has numerous flight modes.
 \Gls{ekf} is computed on the flight controller.
@@ -47,12 +48,6 @@ PX4 be used  with ROS.
 PX4 also have a SITL simulator.
 
 It should be possible to directly control the speed of the motors \cite{px4_low_level_control}.
-
-
-\section{Other Frameworks}
-\subsection{Frameworks related to motion capture}
-{\color{red}Please explain which compatibilities exist for the other frameworks and what they use to allow that \\}
-{\color{red}In crazyswarm they use an improved version of vicon bridge \cite{ros_wiki_vicon_bridge}, so it would be interesting if you could use the same (also compatible with other mocap systems like optitrack). Here \cite{github_usc_actlab} you can find the libmotioncapture and the libobjectracker. In crazyswarm project you can see how they implemented all required functionality. I would focus first on making e.g. ROSflight work with libmotioncapture (using the tracker of Vicon, which works the best). The other one, i.e. libobjectracker, is not needed for this project because it is only useful for very small uavs as the crazyflie (because of the limited space to put markers). So you have an idea where you can find the code.\\}
 
 \section{A comparison between the different Frameworks}
 Every frameworks has a simulator to test the control algorithm.
@@ -78,11 +73,9 @@ It would also run the control algorithm.
 There is also ROS2, it is a new version of ROS that can be use without a master, it supports real-time and it has retro-compatibility with ROS1. But, it is still under heavy development, for now it is not advise to use ROS2.
 
 \subsection{Vicon}
-{\color{red} cite optitrack project to use as a model}
-\texttt{vrpn\_client\_ros} or \texttt{libmotioncapture}.
-
-Maybe \texttt{vrpn\_client\_ros} would be more adapted to our project as it use ros or ros package could be created around \texttt{libmotioncapture}.
-{\color{red}a Vicon bridge to ROS is what you need. Look to how they did it in crazyswarm.}
+\cite{ros_wiki_vicon_bridge}
+\cite{px4_vicon}
+\cite{ardupilot_vicon}
 
 \subsection{Extended Kalman Filter}
 ArduPilot and PX4 have the \gls{ekf} on the flight controller.
@@ -148,8 +141,18 @@ It is not recommended to directly control pwm and at the same time running ArduP
 
 \subsection{On-board Computer}
 \subsubsection{Nvidia Jetson Nano}
+This computer is quite recent and it has only the latest version of Ubuntu that is Ubuntu 18.04.
+But Ubuntu 16.04 is the version that is the most used at the moment in the drone world.
+There not much support for it at the moment.
+
+It is also bigger and heavier than it counterpart the Raspberry Pi. It is mainly due to its better performance, better graphic card and processor.
 
 \subsubsection{Raspberry Pi}
+The Raspberry Pi is one of the most companion computer use. It is lighter and smaller than the Jetson Nano.
+
+A lot of project have been done with it.
+
+There is a shield produce by the emlid company called Navio2. That add the functionality of flight controller to it.
 
 \section{Conclusion}
 ROSflight is a lightweight solution. The bare minimum is implemented, everything else has to be implemented and ROScopter add some functionality. But, it cannot compare to the full-fledged ArduPilot and PX4 \cite{reddit_firmware_ros}. Moreover, when somebody asked on forum if they should use ROSflight, it was recommended to use either ArduPilot or PX4 \cite{reddit_swarm_ros}.
