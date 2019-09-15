@@ -161,7 +161,7 @@ These are some ideas for this project.
 \subsection{Installation of SITL Software}
 Ubuntu 18.04 is used
 
-These \href{http://ardupilot.org/dev/docs/setting-up-sitl-on-linux.html}{instructions} have been used to set up the SITL simulator
+These instructions have been used to set up the SITL simulator \cite{ardupilot_sitl}.
 
 \begin{minted}{bash}
 # Setting up the Build Environment on Linux
@@ -180,7 +180,7 @@ cd ~/ardupilot/ArduCopter
 sim_vehicle.py --console --map
 \end{minted}
 
-Install the full desktop version of ROS Melodic using this \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{link}.
+Install the full desktop version of ROS Melodic using this link \cite{ros_install}.
 
 Gazebo is installed with it.
 
@@ -220,7 +220,7 @@ cd ~/ardupilot/ArduCopter
 ../Tools/autotest/sim_vehicle.py -f gazebo-iris --console --map
 \end{minted}
 
-Installation of MAVROS \href{http://ardupilot.org/dev/docs/ros-install.html#installing-mavros}{link}
+Installation of MAVROS \cite{ardupilot_install_mavros}
 \begin{minted}{bash}
 sudo apt-get install ros-melodic-mavros ros-melodic-mavros-extras
 
@@ -241,7 +241,7 @@ sudo apt-get install ros-melodic-rqt ros-melodic-rqt-common-plugins\
 ros-melodic-rqt-robot-plugins python-catkin-tools
 \end{minted}
 
-Connect ArduPilot to ROS \href{http://ardupilot.org/dev/docs/ros-sitl.html}{link}
+Connect ArduPilot to ROS \cite{ardupilot_ros_sitl}
 \begin{minted}{bash}
 # Create ArduPilot ROS workspace
 cd ~
@@ -287,11 +287,11 @@ There are two way to interface with Vicon. Either via Vicon DataStream SDK or VR
 
 \subsection{API}
 \subsubsection{Vicon DataStream SDK}
-It is an Development Kit from Vicon. It give an easy access to the Vicon DataStream. It is compatible with Vicon Tracker and Nexus. \href{https://www.vicon.com/downloads/utilities-and-sdk/datastream-sdk}{Link}. A ROS package has already been implemented to use it, \href{https://github.com/ethz-asl/vicon_bridge}{vicon\_bridge}.
-The last commit is from 4 years ago but it should still work according to \href{https://answers.ros.org/question/329849/which-ros-package-use-with-vicon/}{this}.
+It is an Development Kit from Vicon. It give an easy access to the Vicon DataStream. It is compatible with Vicon Tracker and Nexus. This is the webpage \cite{vicon_sdk}. A ROS package has already been implemented to use it, vicon\_bridge \cite{github_vicon_bridge}.
+The last commit is from 4 years ago but it should still work according to this \cite{ros_packages_for_vicon}.
 
 \subsubsection{VRPN}
-It is a network based interface to access data of motion capture software. It is compatible only with Vicon Tracker and not with Vicon Nexus. It works out of the box with \href{https://wiki.ros.org/vrpn_client_ros}{vrpn\_client\_ros}. When an object is created in Vicon Tracker, the object information is stream automaticaly via vrpn.
+It is a network based interface to access data of motion capture software. It is compatible only with Vicon Tracker and not with Vicon Nexus. It works out of the box with vrpn\_client\_ros \cite{ros_vrpn_client_ros}. When an object is created in Vicon Tracker, the object information is stream automaticaly via vrpn.
 
 \subsection{Implementation}
 There is a project with Optitrack \cite{ardupilot_optitrack}. There is a resources about how to pass the position and attitude of the drone given by the VICON system to the EKF of the drone, how to set up the EKF.
@@ -299,9 +299,7 @@ There is a project with Optitrack \cite{ardupilot_optitrack}. There is a resourc
 Recently, a project with vicon on ArduPilot has be done \cite{ardupilot_vicon}.
 
 \section{Drone control}
-PX4 \href{https://discuss.ardupilot.org/t/offboard-control/37869}{page} for Offboard control.
-
-ArduPilot \href{http://ardupilot.org/copter/docs/ac2_guidedmode.html#guided-nogps}{page} for guided mode with no\_gps
+ArduPilot has a flight modes called \texttt{guided mode with no\_gps} \cite{ardupilot_flight_modes}.
 
 To control the speed of the motor a solution was proposed \cite{github_ardupilot_11859}.
 It consist in setting the right parameters and sending mavlink messages.
