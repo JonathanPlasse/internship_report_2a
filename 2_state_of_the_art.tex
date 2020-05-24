@@ -1,143 +1,90 @@
 \chapter{State of the Art: Frameworks to Control Aerial Robot Swarms}
 
-{\color{red}
-\begin{itemize}
-    \item Improve the presentation of this chapter
-    \item Discuss about the different requirements not by solution to use
-    \item Make a table of the features by software solution
-    \item Make transition between autopilot and fight controller
-    \item Improve conclusion
-\end{itemize}
-}
+In this chapter, different autopilot frameworks, flight controllers, and onboard computers are studied to choose the best fitting for this project.
 
+\section{Presentation of Autopilot Frameworks}
+    \subsection{Ardupilot}
+    ArduPilot is an open-source autopilot framework since 2009.
+    It can run on different types of vehicles, not only drones but also rover, helicopter, and even submarine.
+    It is full-featured and reliable. It has thousands of hours of flight over 1 million vehicles worldwide.
 
-As the crazyflies cannot be used to communicate at high speed with low latency to an offboard computer like raspberry py and has not much space and power to accomodate an offboard computer.
-The custom drone solution was chosen.
+    \subsection{PX4}
+    PX4 is based on ArduPilot and now has a community of its own. It is more aim toward a commercial solution.
+    It is backed by the Linux Foundation.
+    Generally, PX4 and Ardupilot have similar features.
 
+    \subsection{ROSflight}
+    The core strength of ROSflight is that it has been designed to control a drone with a companion computer
+    and it has an easy-to-understand code base that is kept lean.
+    It is easy to build on top of ROSflight to add functionalities. The project ROScopter \cite{github_roscopter}, for example, adds the support of waypoint position control.
 
+\section{Criteria}
+The chosen autopilot framework will be the one that respects most of the criteria.
 
+    \subsection{Implementation}
+    Different features are needed for this project; the one that needs the less further implementation is preferred.
 
-For the following discussion it is assumed that the drone has an companion computer.
-The aim is to test a computationally demanding low-level control algorithm directly controlling the speed of the motor of the drone. This is today impossible on most of the available flight controllers.
+        \subsubsection{Direct control of motor speed}
+        The control algorithms are to be able to control the motor speed of the drone directly.
 
-\section{Autopilot software}
+        This functionality could be implemented on all autopilots \cite{github_ardupilot_11859}\cite{px4_low_level_control}\cite{github_rosflight_98}.
 
-\subsection{ROSflight \& ROScopter}
-The core strength of ROSflight is that it has been designed to control a drone with a companion computer, and it has an easy-to-understand code base that is kept lean.
-It is easy to build on top of ROSflight to add functionalities. The project ROScopter \cite{github_roscopter} for example add the support of waypoint position control.
+        \subsubsection{EKF}
+        The Extended Kalman Filter (EKF) is an algorithm to merge different sensor data and obtain the drone's position and orientation, among other measures.
+        
+        On both Ardupilot and PX4, the EKF runs on the flight controller, so nothing has to be done.
+        ROSflight runs the EKF on the onboard computer, not on the flight controller, so it needs to share data between the two, which is inefficient.
+        Also, the EKF on ROSflight takes less information into account.
 
-There is only a few flight controller that are know to be compatible with ROSflight (e.g. OpenPilot Revolution and PixHawk).
-So, if another flight controller is chosen, some more configurations would have to be done.
+        \subsubsection{Compatible with Vicon}
+        The autopilot should be able to use the motion capture data in the EKF.
 
-ROS is a core functionality of ROSflight.
+        For Ardupilot and PX4, a MAVlink message can be used to transfer the data to the EKF.
+        But for ROSflight, it has to be implemented.
 
-ROSflight have a \gls{sitl} simulator.
+    \subsection{Simulation}
+    The Software In The Loop (SITL) is the idea of running the autopilot software inside a physical simulation.
+    Thanks to this, the modification in the autopilot can be tested in software before the real test.
+    It can avoid breaking the drones and allow them to test less in real life.
 
-It should be possible to directly control the speed of the motors \cite{github_rosflight_98}.
+    \subsection{ROS interface}
+    All autopilot frameworks are compatible with ROS. But ROSflight is the only one completely ROS based.
 
-\subsection{ArduPilot}
-ArduPilot and more precisely ArduCopter has a lot of features.
-It has numerous flight modes.
-\Gls{ekf} is computed on the flight controller.
-It has its own Ground Control Station to flash its firmware and modify settings.
-ArduPilot is compatible with a lot of flight controller
-It has a strong community.
-It has a really good documentation.
-It is tested a lot and the users report problem when they arise.
+    \subsection{Open-source}
+    All autopilot frameworks are open-source. The only difference is the licenses.
 
-ArduPilot be used  with ROS.
+    \subsection{Community}
+    Both Ardupilot and PX4 have huge communities that are ready to help.
+    That is not the case with ROSflight, even if the developer of ROSflight is responsive.
 
-ArduPilot also have a \gls{sitl} simulator.
+\section{Hardware}
 
-It is possible to directly control the speed of the motors \cite{github_ardupilot_11859}.
+    \subsection{Flight controller}
 
-\subsection{PX4}
-PX4 has a lot of features.
-It has numerous flight modes.
-\Gls{ekf} is computed on the flight controller.
-It has its own Ground Control Station to flash firmware and modify the settings.
-It has a strong community.
-It has a good documentation.
-It is tested a lot and the users report problem when they arise.
+        \subsubsection{PixHawk or PixRacer}
+        The PixHawk is compatible with all autopilot.
+        It is the flight controller use by everyone. There is much documentation. And ArduPilot recommend using it \cite{ardupilot_choose_fc}.
+        A small version of it is the PixRacer that is more affordable and adapted for this project \cite{mrobotics_pixracer}.
 
-PX4 be used  with ROS.
+        \subsubsection{OpenPilot Revolution}
+        It is compatible with ROSflight and ArduPilot. It is a popular flight controller.
 
-PX4 also have a SITL simulator.
+        \subsubsection{Navio2 with Raspberry Pi}
+        It is compatible with Ardupilot and PX4. It is nice as it is used both as a flight controller and onboard computer.
 
-It should be possible to directly control the speed of the motors \cite{px4_low_level_control}.
+    \subsection{Onboard computer}
 
-\section{A comparison between the different Frameworks}
-These blog posts provide a comparison of open source drone software frameworks \cite{drone_software_projects} and many flight controllers \cite{drone_flight_controllers}.
+        \subsubsection{Nvidia Jetson Nano}
+        It is compatible with every autopilot, but it takes more place than the Raspberry Pi.
 
-\subsection{Communication}
-The communication between the companion computer and the flight controller of the drones are done with the MAVlink protocol. All firmware use MAVlink but each firmware has its own implementation.
-
-\subsection{ROS}
-Every autopilot software can interface with ROS. But, there is only PX4 that compatible with ROS2.
-
-ROS2 is a new version of ROS that can be use without a master, it supports real-time and it has retro-compatibility with ROS1. But, it is still under heavy development, it is advise to use ROS2 only if its features are indispensable.
-
-\subsection{Vicon}
-There are project that used vicon with ArduPilot \cite{ardupilot_vicon} and PX4 \cite{px4_vicon}.
-
-\subsection{Extended Kalman Filter}
-Both ArduPilot and PX4 have an EKF running on the flight controller contrarily to ROSflight where it is an extension given by ROScopter.
-
-It is possible to give the absolute postion data from the motion capture system to the EKF of ArduPilot and PX4 but not ROSflight as it has not been implemented.
-
-\subsection{Direct control of motor speed}
-Every autopilot software has solution to directly control the motor speed but only ArduPilot has a solution that is already implemented.
-
-\subsection{Swarm compatibility}
-Both ArduPilot \cite{ardupilot_multi_vehicle} and PX4 \cite{px4_multi_vehicle}
-have proof of concept that swarm of drone are possible.
-
-It should be possible for ROSflight \cite{github_rosflight_100} too.
-But, some firmware modification has to be done.
-
-\subsection{Simulator}
-All firmware have SIL/SITL simulator.
-Only PX4 can simulate multiple drone out of the box.
-
-\subsection{Flight controller}
-\subsubsection{OpenPilot Revolution}
-It is compatible with ROSflight and ArduPilot. It is a popular flight controller.
-It comes with all the connectors needed \cite{bangood_revo}.
-
-
-\subsubsection{PixHawk 2.4.8/PixRacer}
-The PixHawk is compatible with every firmware.
-It is the flight controller use by everyone, there is a lot of documentation, project. And ArduPilot recommend using it \cite{ardupilot_choose_fc}.
-A small version of it is the PixRacer that is more abordable and adapted for this project \cite{mrobotics_pixracer}.
-
-\subsubsection{Navio2+Raspberry Pi 4}
-As the Raspberry Pi 4 has just been released it has different problems that has not been solved such as overheating, firmware problems… It is not software compatible with the NAVIO2 at the moment, they will release an new image when they will have done some test. It is adviced to wait until it had a bit of time on the market. So for now the raspberry pi 4 is not reliable enough for this project \cite{ardupilot_rpi_compatibility}.
-
-If we use the Raspberry Pi 3B+ with Navio2.
-
-Here is a blog post about Navio2 + Raspberry Pie \cite{dojofordrones_rpi_drone}.
-
-It is not recommended to directly control pwm and bypassing ArduPilot that is running \cite{emlid_servo_control}. It is recommended to control pwm via ArduPilot. It has to communicate via MAVLINK like the other flight controllers.
-
-\subsection{On-board Computer}
-\subsubsection{Nvidia Jetson Nano}
-This computer is quite recent and it has only the latest version of Ubuntu that is Ubuntu 18.04.
-But Ubuntu 16.04 is the version that is the most used at the moment in the drone world.
-There not much support for it at the moment.
-
-It is also bigger and heavier than it counterpart the Raspberry Pi. It is mainly due to its better performance, better graphic card and processor.
-
-\subsubsection{Raspberry Pi}
-The Raspberry Pi is one of the most companion computer use. It is lighter and smaller than the Jetson Nano.
-
-A lot of project have been done with it.
-
-There is a shield produce by the emlid company called Navio2. That add the functionality of flight controller to it.
+        \subsubsection{Raspberry Pi}
+        It is compatible with every autopilot, and it takes not much space as it is used both as a flight controller and onboard computer.
+        It is also widely used compared to the Nvidia Jetson Nano.
+        It is less powerful than the Nvidia Jetson Nano. But the Raspberry 4 will soon arrive with good performances.
 
 \section{Conclusion}
-ROSflight is a lightweight solution where every new functionality has to be implemented.
-It does not have a large community to help with questions and all the features of ArduPilot and PX4. So, the choice is between ArduPilot and PX4
+ROSflight demands a lot of features implementation compared to PX4 and Ardupilot.
+PX4 and Ardupilot are similar, so either of them could be used.
 
-Raspberry Pi and Navio is the most compact solution that exist and it comes with ArduPilot and ROS already installed with it.
-
-Ardupilot is the solution chosen. PX4 is still an option that can be explored in the future of this project.
+So, the navio2 with the raspberry pi seems to be the solution that takes less space and is compatible with both PX4 and Ardupilot.
+That is why it was chosen.
