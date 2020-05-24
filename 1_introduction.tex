@@ -1,57 +1,38 @@
 \chapter{Introduction}\pagenumbering{arabic}
 
-{\color{red}
-\begin{itemize}
-    \item Present VUB
-    \item Present the motivation of the project
-    \item Present what is to be done in the project
-    \item Present the Requirements
-    \item \dots
-\end{itemize}
-}
+\section{Presentation of BruBotics}
 
-\section{VUB}
-The {\color{red}Vrje Universitat Brussel} (VUB) is
+BruBotics is a team of researcher from the mechanical engineering departement of the Vrije Universiteit Brussel (VUB).
 
-BruBotics a team inside of VUB, is mainly oriented toward mecatronics. The core of competence of the group is prostesis.
-Bryan Convens has gone in a new direction for his PhD.
-He has for project to fly a swarm of drone that avoid each other online.
+BruBotics is mainly oriented toward mechatronics, robotics, prosthesis, exoskeleton, and recently self-healing materials.
 
+My internship mentor, Bryan Convens, has gone in a new direction for his Ph.D. thesis.
+He has the project to fly a swarm of drones that can dynamically avoid each other.
 
-A motion capture system (Vicon) will be used and high bandwidth communication will be necessary for the drone.
-Two possibilities is possible, use an out-of-the-box drone or designed a custom one for this project.
+\section{Aim of this internship}
 
-A study of different software solution will be studied,
-Autopilot firmware,
-Software to run on the offboard computer. (ROS)
-Software that run on ground station.
+The goal is to create a platform (the hardware and software) that can be used to fly a swarm of drones.
+With this platform, Bryan Convens will be able to test different control algorithms for his thesis.
 
+For this project, the drone has to have high bandwidth communication to communicate information between them
+and avoid each other.
+Motion Capture is used as it gives precise position and orientation of the drones. It is a solution that is already used at BruBotics.
+Each drone has to have an onboard computer as the control algorithm is computationally demanding.
 
+This an ambitious project as there has not been any open source project with all the requirements presented.
 
+Other project requirements are that the project should be as open-source as possible to facilitate replicability.
+If possible, it should use the ROS framework to facilitates sharing robotics software and is widely used in the world of research.
 
-The idea of this internship has been to create a platform to test control algorithm on a swarm of drones using high bandwidth wireless communication, motion capture, and ROS.
+The use of existing solutions should be prioritized as it minimizes the complexity and development time of the project
 
-\section{Project Requirements}
-\begin{itemize}
-    \item The project should be as open source as possible.
-    \item If possible, it should be ROS based.
-    \item It should use as much as possible existing solution, to minimize development time.
-    \item It should work with quad-copter. Drone configuration is optional.
-    \item It should fly indoors
-    \item It should use Vicon Motion Capture system
-    \item It should have a dynamic simulation of the swarm
-    \item It should have high bandwidth wireless communication.
-    \item It should be able to fly a swarm of 5 to 30 drones.
-    \item The drone should be as small as possible.
-\end{itemize}
+The drone should be as small as possible to allow a maximum of drone (5 to 30 drones) to fly as it has to fly indoors and, the motion capture area is limited.
+
+It should also be possible to simulate the swarm in software to test the control algorithm before the real flight.
 
 \section{Approach}
-Exploring the possible solutions of autopilot software to see which one would be the best fit for this project.
 
-Designing a drone that can fly with a companion computer and assuring it is compatible with the chosen autopilot software.
-
-Building a drone and creating instructions on how to build the drones.
-
-Configuring and testing a drone without making a change to the autopilot software.
-
-Making extension to the project to use multiple drones, simulation and motion capture.
+First, the different autopilot frameworks were researched to choose the most appropriate one.
+Once the autopilot framework was chosen, it was the turn of the hardware of the drone.
+Then, a first drone was assembled and tested.
+With a functioning drone, it was then time to start implementing the different functionalities for this project.
