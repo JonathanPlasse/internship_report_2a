@@ -1,20 +1,16 @@
 \chapter{Testing the ArduPilot Framework}
 
-{\color{red}
-\begin{itemize}
-    \item Make Transitions
-    \item Explain what has to be done after the drone is built
-    \item Explain why it is done
-    \item Have a high level explanation.
-\end{itemize}
-}
+This part explains how to configure and test the drone.
+It is without doing modification any modification to the autopilot.
+
+The autopilot, the computer, and the router had to be configured to test the drone.
 
 \section{Setup of the Drone}
 \subsection{Configuring the Raspberry Pi}
-This link \cite{emlid_rpi_config} explain how to configure the Raspberry Pi. The \textit{Upgrading} and \textit{Expanding rootfs} were not used. It recommended to not follow them if not needed.
+This link \cite{emlid_rpi_config} explain how to configure the Raspberry Pi. The \textit{Upgrading} and \textit{Expanding rootfs} were not used. It recommended not to follow them if not needed.
 
 \subsubsection{Installing the Emlid image on a Raspberry Pi}
-The following commands is to check if the downloaded file is not corrupted.
+The following commands are to check if the downloaded file is not corrupted.
 
 \begin{enumerate}
     \item Download Raspbian image and the md5 file from here \cite{emlid_rpi_config} in the same folder.
@@ -36,9 +32,9 @@ emlid-raspbian-<numbers>.img: OK
                     \end{minted}
 
     \item follow the section "Writing image to SD card" of the Emlid tutorial
-    \item Burn the image on a SD card.
+    \item Burn the image on an SD card.
     \item Insert the sd card in the Raspberry Pi.
-    \item Connect a monitor and a keyboard to the Raspberry Pi. Note that even if you use an azerty keyboard, it the keys are interpreted as if it was qwerty.
+    \item Connect a monitor and a keyboard to the Raspberry Pi. Note that even if you use an azerty keyboard, the keys are interpreted as qwerty.
     \item Power the Raspberry Pi.
 \end{enumerate}
 You should see on the screen the Raspberry Pi booting.
@@ -131,7 +127,7 @@ Now, we can ssh the Raspberry Pi using on the computer
 \end{enumerate}
 
 \subsubsection{Create an SSH key}
-To connect via ssh to the Raspberry Pi without typing the password, this tutorial \cite{ssh_ssh_copy_id} was followed with some alterations. An ssh key was created on the computer and shared it to the Raspberry Pi to identify the computer automatically.
+To connect via ssh to the Raspberry Pi without typing the password, this tutorial \cite{ssh_ssh_copy_id} was followed with some alterations. An ssh key was created on the computer and shared it with the Raspberry Pi to identify the computer automatically.
 
 \begin{enumerate}
     \item open a terminal and type cd .ssh and ls. If the output is just $known_hosts$, it means you don't have keys yet.
@@ -181,7 +177,7 @@ Follow this page \cite{emlid_ardupilot_installation} of the Emlid documentation.
 \subsubsection{Installation}
 Install QGroundStation, follow this explanation \cite{qgc_install}.
 
-You will now setup QGroundControl to monitor the drones. More details can be find here \cite{qgc_setup}.
+You will now setup QGroundControl to monitor the drones. More details can be found here \cite{qgc_setup}.
 
 \subsubsection{Telemetry}
 \begin{enumerate}
@@ -221,13 +217,13 @@ There is a lot of different flight for Ardupilot \cite{ardupilot_flight_modes}.
     \item Set \texttt{Channel 5} for the \texttt{Flight mode channel}.
     \item Set \texttt{Alt. Hold} as \texttt{Flight Mode 1} and \texttt{Land} for the other.
 \end{enumerate}
-If something happens, you just have to turn the knob \texttt{VRA} and lower the throttle to land the drone.
+If something happens, you have to turn the knob \texttt{VRA} and lower the throttle to land the drone.
 There may be a way to stop the motors directly.
 
-You can directly see which flight mode is selected in the interface for different position of the knob.
+You can directly see which flight mode is selected in the interface for different positions of the knob.
 
 \subsubsection{Power}
-You can setup the voltage and current reading in the Power windows.
+You can set up the voltage and current reading in the Power windows.
 This setting has not been explored. You should disable it if you do not know how to set it up.
 
 \subsubsection{Safety}
@@ -243,10 +239,10 @@ As GPS is not use on this project. All the safety setup that use GPS has to be m
 \begin{enumerate}
     \item Plug the battery to the drone.
     \item Place the drone on a flat surface.
-    \item Wait the for the LED to flash red and blue and then it single flash yellow. If it double flash yellow the pre-arm checks failed. More on LED meaning here \cite{ardupilot_leds}.
+    \item Wait for the LED to flash red and blue, and then it single flash yellow. If it double flash yellow, the pre-arm checks failed. More on LED meaning here \cite{ardupilot_leds}.
     \item Power on the transmitter. The LED should flash blue.
     \item Select the flight mode on the transmitter you want to use with the knob \texttt{VRA}.
-    \item Arm the drone by placing the throttle stick to the bottom right for 2 seconds. When the LED is solid blue release the throttle stick. The motor will start to spin.
+    \item Arm the drone by placing the throttle stick to the bottom right for 2 seconds. When the LED is solid blue, release the throttle stick. The motor starts to spin.
     \item You can now fly the drone.
 \end{enumerate}
 
