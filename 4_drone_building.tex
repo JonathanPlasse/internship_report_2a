@@ -1,13 +1,10 @@
 \chapter{Drone Building}
-{\color{red}
-\begin{itemize}
-    \item Better presentation of this chapter
-    \item Make a explanation for each segment of the build
-    \item Explain more explicitely that for more explanation they have to go to the source
-\end{itemize}
-}
 
-In order to get familiar with the drone building process, it is highly recommended to follow this tutorial \cite{udemy_build_course}.
+Once all the components have arrived, the drone had to be assembled. It is a step by step explanation.
+It explains how and why it is assembled like this.
+It also aims to make this design reproducible by others.
+And it could be generalized with other drones.
+It also explains the safety measure to be taken.
 
 \section{Soldering}
 For soldering you will need to have:
@@ -57,8 +54,8 @@ To attach the arm to the PDB, you will need:
 \end{itemize}
 The sequence of steps that have to be followed are:
 \begin{enumerate}
-    \item Place the esc cable in between the arm fixations.
-    \item Screw the arm to the PDB, but not too tight to be able to adjust the arm position later.
+    \item Place the ESC cable in between the arm fixations.
+    \item Screw the arm to the PDB, but not too tight to adjust the arms position later.
 \end{enumerate}
 
 \begin{figure}[!ht]
@@ -72,14 +69,14 @@ The sequence of steps that have to be followed are:
 
 
 \section{Motors}
-To attach the motors to the frame, you will need:
+To attach the motors to the frame, you need:
 \begin{itemize}
     \item The previous assembly,
-    \item the frame Kit with 16 M3 screw.
+    \item the frame Kit with 16 M3 screws.
 \end{itemize}
 The sequence of steps that have to be followed are:
 \begin{enumerate}
-    \item Check where each motor should be placed by looking how they should rotate (clockwise or counterclockwise).
+    \item Check where each motor should be placed by looking at how they should rotate (clockwise or counterclockwise).
     \item Screw the motors to the frame.
 \end{enumerate}
 
@@ -119,7 +116,7 @@ To attach the Raspberry Pi to the frame, you will need:
     \item straps,
     \item insulation tape
 \end{itemize}
-Note that the side with the usb port on the raspberry pie and the arrow on the navio2 represent the front of the drone.\\
+Note the side with the USB port on the raspberry pie, and the arrow on the navio2 represents the drone's front.\\
 The sequence of steps that have to be followed are:
 \begin{enumerate}
     \item Add insulation tape under the raspberry pie.
@@ -127,7 +124,7 @@ The sequence of steps that have to be followed are:
     \item Strap the Raspberry to the top plate.
 \end{enumerate}
 
-This is not the best solution, it does not evacuate the heat well. Creating a 3D support with damped spacer could address this problem and reduce the vibration of the Raspberry Pi. Or try a solution with double sided tape.
+This solution does not evacuate the heat well. Creating 3D support with a damped spacer could address this problem and reduce the vibration of the Raspberry Pi. Or try a solution with double-sided tape.
 
 \begin{figure}[!ht]
     \centering
@@ -157,17 +154,17 @@ To charge the battery one should:
 \begin{enumerate}
     \item Power the battery charger.
     \item Set the voltage to 11.1V for our drone and the current to 1A for charging.
-    \item Place the battery in the fire proof bag. This is absolutely require as a safety issue since LiPo batteries can catch fire.
-    \item Connect the battery to the charger. For the main lead beware of the polarity! Red on red, black on black. For the balance lead connect it to its appropriate place (3S).
+    \item Place the battery in the fireproof bag. It is crucial as a safety issue since LiPo batteries can catch fire.
+    \item Connect the battery to the charger. For the main lead, beware of the polarity! Red on red, black on black.
     \item Press start until it beeps. Then press start again.
-    \item It will beep when the battery is charged.
+    \item It beeps when the battery is charged.
     \item You can now disconnect the battery.
 \end{enumerate}
 Never leave unattended a battery charging! It can catch fire if something goes wrong.
-Always have a spare battery to replace the discharged one to avoid loosing time.
+Always have a spare battery to replace the discharged one to avoid losing time.
 
 \subsection{Monitoring}
-With the voltage battery monitor, you can check if the lipo battery is charged and it will alarm you when the voltage is too low.
+With the voltage battery monitor, you can check if the lipo battery is charged and warns you when the voltage is too low.
 
 \begin{figure}[!ht]
     \centering
@@ -177,7 +174,7 @@ With the voltage battery monitor, you can check if the lipo battery is charged a
 \end{figure}
 
 \subsection{Storing}
-If you will not use the LiPo for a long time do not keep the batteries at full capacity. It would damage the LiPo. Use the mode storage of the charger to discharge the battery. It is a similar procedure to the charging one.
+If you do not use the LiPo for a long time, do not keep the batteries at full capacity. It would damage the LiPo. Use the mode storage of the charger to discharge the battery. It is a similar procedure to the charging one.
 
 \section{Power Connections}
 \begin{enumerate}
@@ -242,7 +239,7 @@ We chose to power the receiver with the Navio using \texttt{CH1/PPM} on the rece
     \item Power off the transmitter.
     \item Power the receiver.
     \item Connect the supplied bind cable to the B/VCC port on the receiver.
-    \item Hold the \texttt{BIND KEY} while powering on the transmitter to enter bind mode. The transmitter will then display this.
+    \item Hold the \texttt{BIND KEY} while powering on the transmitter to enter the binding mode. The transmitter displays it.
 \end{enumerate}
 
 \begin{figure}[!ht]
@@ -270,7 +267,7 @@ We chose to power the receiver with the Navio using \texttt{CH1/PPM} on the rece
 \subsection{Changing the output mode of the receiver}
 The \texttt{PWM} mode sends the PWM signal to each channel on the receiver. You can text your ESC with this mode.
 
-The \texttt{PPM} mode send all the signals to the channel 1 of the receiver. This reduces the number of cables to connect to the flight controller. It is the solution used to control the Navio.
+The \texttt{PPM} mode sends all the signals to channel 1 of the receiver. It reduces the number of cables to connect to the flight controller. It is the solution used to control the Navio.
 
 \begin{enumerate}
     \item Power on the transmitter.
@@ -291,35 +288,35 @@ The \texttt{PPM} mode send all the signals to the channel 1 of the receiver. Thi
 \end{enumerate}
 
 \paragraph{Allocating switches to channels}
-You can allocate a switch to channel you have activated.
+You can allocate a switch to the channel you have activated.
 \begin{enumerate}
     \item Go to \texttt{MENU/Functions setup/Aux. channels}.
-    \item Choose which switch go to which channel.
+    \item Choose which switch goes to which channel.
     \item Validate by maintaining press \texttt{CANCEL}.
 \end{enumerate}
 
 \section{ESC}
-The following section will expain how to setup the ESC.
+The following section explains how to set up the ESC.
 Do it one motor at a time on all motors.
 
-Do not put propellers on the motors! It is really dangerous when the motor are not calibrated.
+Do not put propellers on the motors! It is dangerous when the motors are not calibrated.
 \subsection{Testing Motor}
 
 \begin{enumerate}
     \item Set the \texttt{PWM} output mode.
     \item Power of the transmitter.
     \item Plug on the receiver \texttt{CH3} the ESC with the white cable on top.
-    \item Power the receiver on.
-    \item Power the transmitter on.
+    \item Power the receiver.
+    \item Power the transmitter.
 \end{enumerate}
-You can now control the speed of the motor connected to the receiver. But it is possible that when you move the throttle stick a little the motor does not react to it. That is where calibration comes in. You also want to check the spin direction of the motor. So do not change the cabling for now.
+You can now control the speed of the motor connected to the receiver. But it is possible that when you move the throttle stick a little, the motor does not react. That is where calibration comes in. You also want to check the spin direction of the motor. So do not change the cabling for now.
 
 \subsection{Calibrating}
-The calibration of the ESC consist in giving the minimum and maximum position of the transmitter throttle stick to the ESC so that the maximum and minimum throttle correspond to the real minimum and maximum throttle.
+The calibration of the ESC consists of giving the minimum and maximum position of the transmitter throttle stick to the ESC so that the maximum and minimum throttle correspond to the real minimum and maximum throttle.
 
 \begin{enumerate}
     \item Unplug the battery of the drone.
-    \item Power the transmitter on.
+    \item Power the transmitter.
     \item Place the throttle to the highest position.
     \item Plug the battery of the drone.
     \item Wait for the beeps to stops.
@@ -330,12 +327,12 @@ You now have a calibrated motor.
 
 
 \subsection{Motor Spin Direction}
-Now, you will check if the motors are rotating in the right direction.
+Now, you check if the motors are rotating in the right direction.
 
 \begin{enumerate}
     \item Increase the throttle a little to make the motor spin slowly.
     \item Check if the motor spin in the right direction.
-    \item If the motor spin direction is not the right one. Inverse to cable of the motor connected to the ESC.
+    \item If the motor spin direction is not the right one. Inverse two cables of the motor connected to the ESC.
 \end{enumerate}
 
 You now have a motor with the right direction speed.
